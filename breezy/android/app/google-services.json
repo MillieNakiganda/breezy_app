@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "416486319043",
+    "project_id": "app-breezy",
+    "storage_bucket": "app-breezy.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416486319043:android:fd8fbfe9a4e9bff8cf9376",
+        "android_client_info": {
+          "package_name": "com.nakiganda.breezy"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWw9fME-ZPNQa4uTZjqnXWfsTtKk5NoKE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

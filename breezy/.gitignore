@@ -10,6 +10,7 @@
 .history
 .svn/
 .swiftpm/
+*.env
 migrate_working_dir/
 
 # IntelliJ related
@@ -43,3 +44,53 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# iOS build artifacts
+ios/build/
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/Flutter/flutter_export_environment.sh
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+
+# macOS build artifacts
+macos/build/
+macos/Pods/
+macos/.symlinks/
+macos/Flutter/GeneratedPluginRegistrant.swift
+
+# Web build artifacts
+web/build/
+
+# Windows build artifacts
+windows/build/
+
+# Linux build artifacts
+linux/build/
+
+# Xcode build artifacts
+*.xcworkspace/xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Xcode build cache and PIFCache
+**/XCBuildData/
+**/PIFCache/
+**/target/TARGET@*
+
+# CocoaPods lockfile (regenerate with: cd ios && pod install)
+ios/Podfile.lock
+
+# Scripts
+scripts/
+
+# todos
+*.todo
