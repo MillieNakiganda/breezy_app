@@ -13,3 +13,8 @@ For a closer look at generated color system, check this out in [material theme b
 Typography is [Google-Sans](https://fonts.google.com/specimen/Google+Sans?query=sans) , and for over all [text specs](https://m3.material.io/styles/typography/type-scale-tokens)
 
 
+### Routing System
+
+Based on the declarative routing style of Navigation 2.0 through [GoRouter pacakage](https://pub.dev/packages/go_router/)
+
+Ensure strongly typed parameter types with [Go Router Builder](https://pub.dev/packages/go_router_builder). This eases detectibility at compile-time instead of at run-time.
