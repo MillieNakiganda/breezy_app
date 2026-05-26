@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/utils/theme/theme_extensions.dart';
 import '../../domain/onboarding_item.dart';
 import '../components/onboarding_widget.dart';
 
@@ -13,7 +14,6 @@ class OnboardingView extends StatefulWidget {
 class _OnboardingViewState extends State<OnboardingView> {
   final PageController pageController = PageController();
   int currentPage = 0;
-
   @override
   void dispose() {
     pageController.dispose();
@@ -70,7 +70,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: index == currentPage
-                            ? Colors.deepPurple
+                            ? context.theme.colorScheme.primary
                             : Colors.grey,
                       ),
                     );
@@ -80,15 +80,15 @@ class _OnboardingViewState extends State<OnboardingView> {
                 GestureDetector(
                   onTap: goToNextPage,
                   child: Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.deepPurple,
+                    decoration: BoxDecoration(
+                      color: context.theme.colorScheme.primary,
                       shape: BoxShape.circle,
                     ),
-                    child: const Padding(
+                    child: Padding(
                       padding: EdgeInsets.all(12.0),
                       child: Icon(
                         Icons.arrow_forward,
-                        color: Colors.white,
+                        color: context.theme.colorScheme.onPrimary,
                         size: 24,
                       ),
                     ),
