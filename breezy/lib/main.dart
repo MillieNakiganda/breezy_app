@@ -58,7 +58,10 @@ class MyApp extends StatelessWidget {
           primary: Color(0xFF00C3D0),
           brightness: Brightness.light,
         ),
-        //  subThemesData: FlexSubThemesData(useMaterial3Typography: true),
+        subThemesData: FlexSubThemesData(
+          useMaterial3Typography: true,
+          scaffoldBackgroundSchemeColor: SchemeColor.surface,
+        ),
         useMaterial3ErrorColors: true,
         fontFamily: 'Sans',
       ),
