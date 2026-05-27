@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../core/utils/theme/theme_extensions.dart';
+import '../../../../utils/router/route_names.dart';
+import '../../../../utils/theme/theme_extensions.dart';
 import '../../domain/onboarding_item.dart';
 import '../components/onboarding_widget.dart';
 
@@ -21,7 +23,10 @@ class _OnboardingViewState extends State<OnboardingView> {
   }
 
   void goToNextPage() {
-    if (currentPage >= onboardingItems.length - 1) return;
+    if (currentPage >= onboardingItems.length - 1) {
+      context.go(AppRoutes.home);
+      return;
+    }
 
     pageController.nextPage(
       duration: const Duration(milliseconds: 300),
@@ -71,7 +76,7 @@ class _OnboardingViewState extends State<OnboardingView> {
                         shape: BoxShape.circle,
                         color: index == currentPage
                             ? context.theme.colorScheme.primary
-                            : Colors.grey,
+                            : context.theme.colorScheme.outline,
                       ),
                     );
                   }),

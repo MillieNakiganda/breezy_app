@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 
-import '../../../core/utils/theme/theme_extensions.dart';
+import '../../../../utils/router/route_names.dart';
+import '../../../../utils/theme/theme_extensions.dart';
 import '../../domain/onboarding_item.dart';
 import 'title_description_widget.dart';
 
@@ -30,7 +32,12 @@ class OnboardingWidget extends StatelessWidget {
       children: [
         Align(
           alignment: Alignment.centerRight,
-          child: Text('Skip', style: context.textTheme.bodyLarge),
+          child: TextButton(
+            onPressed: () {
+              context.go(AppRoutes.home);
+            },
+            child: Text('Skip', style: context.textTheme.bodyLarge),
+          ),
         ),
         if (index == 1) ...[
           SizedBox(height: 60),

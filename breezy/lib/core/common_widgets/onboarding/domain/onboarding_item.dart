@@ -1,4 +1,4 @@
-import '../../core/utils/images.dart';
+import '../../../utils/images.dart';
 
 class OnboardingTitlePart {
   final String text;

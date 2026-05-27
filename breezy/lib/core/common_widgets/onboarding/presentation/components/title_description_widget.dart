@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../core/utils/theme/theme_extensions.dart';
+import '../../../../utils/theme/theme_extensions.dart';
 import '../../domain/onboarding_item.dart';
 
 class TitleDescriptionWidget extends StatelessWidget {
