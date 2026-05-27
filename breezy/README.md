@@ -4,6 +4,12 @@ Breezy is a mobile on-demand cleaning platform that instantly connects users acr
 
 ## Getting Started
 
+### Architecture
+
+For the project structure, the app uses a feature first approach where the code is organised per feature
+
+For app structure, layered  is used, where separation of logic and data flow is through the presentation, domain, app and data layers
+
 ### Design Sytem
 
 The app uses Material 3 color system, system generated from the seed color, additionally uing [Flex Color Scheme](https://pub.dev/packages/flex_color_scheme) for overall theming of the components.
