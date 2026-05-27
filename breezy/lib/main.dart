@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'client/shared/presentation/components/client_navigation_bar_widget.dart';
 import 'core/utils/router/app_router.dart';
@@ -13,6 +14,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(theme: AppTheme.lightTheme, routerConfig: router);
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return MaterialApp.router(
+          theme: AppTheme.lightTheme,
+          routerConfig: router,
+        );
+      },
+    );
   }
 }
