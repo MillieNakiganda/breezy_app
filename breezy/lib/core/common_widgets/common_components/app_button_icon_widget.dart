@@ -26,7 +26,7 @@ class AppIconButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton.icon(
+    return OutlinedButton.icon(
       iconAlignment: IconAlignment.start,
       icon: icon,
       onPressed: onPressed,
@@ -37,7 +37,7 @@ class AppIconButtonWidget extends StatelessWidget {
           fontWeight: FontWeight.bold,
         ),
       ),
-      style: ElevatedButton.styleFrom(
+      style: OutlinedButton.styleFrom(
         elevation: 0,
         backgroundColor: backgroundColor ?? context.theme.colorScheme.primary,
         minimumSize: Size(buttonWidth ?? double.infinity, 48),

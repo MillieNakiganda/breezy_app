@@ -24,9 +24,10 @@ class AppButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
+    return FilledButton(
       onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
+      style: FilledButton.styleFrom(
+        splashFactory: NoSplash.splashFactory,
         elevation: 0,
         backgroundColor: backgroundColor ?? context.theme.colorScheme.primary,
         minimumSize: Size(buttonWidth ?? double.infinity, 48),
