@@ -1,3 +1,4 @@
+import 'package:breezy/core/utils/router/route_names.dart';
 import 'package:breezy/core/utils/router/routes.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,5 +11,5 @@ final GoRouter router = GoRouter(
   debugLogDiagnostics: kDebugMode,
   navigatorKey: rootNavigatorKey,
   routes: $appRoutes,
-  initialLocation: '/login',
+  initialLocation: AppRoutes.registrationView,
 );

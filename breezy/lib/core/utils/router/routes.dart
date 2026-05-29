@@ -4,6 +4,7 @@ import 'package:breezy/core/utils/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../client/accounts/client_registration_view.dart';
 import '../../../client/shared/presentation/client_home_view.dart';
 import '../../../client/bookings/history.dart';
 import '../../../client/shared/presentation/components/client_navigation_bar_widget.dart';
@@ -82,6 +83,14 @@ class LoginRoute extends GoRouteData with $LoginRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return LoginView();
+  }
+}
+
+@TypedGoRoute<RegistrationRoute>(path: AppRoutes.registrationView)
+class RegistrationRoute extends GoRouteData with $RegistrationRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return ClientRegistrationView();
   }
 }
 

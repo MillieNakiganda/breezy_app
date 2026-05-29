@@ -27,6 +27,7 @@ class AppTheme {
     subThemesData: FlexSubThemesData(
       useMaterial3Typography: true,
       scaffoldBackgroundSchemeColor: SchemeColor.surface,
+      appBarBackgroundSchemeColor: SchemeColor.surface,
     ),
     useMaterial3ErrorColors: true,
     fontFamily: 'Sans',

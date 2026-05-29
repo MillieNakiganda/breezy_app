@@ -34,4 +34,36 @@ extension ValidationExtensions on String {
 
     return true;
   }
+
+  bool get isValidPassword {
+    return atleastOneUppercase &&
+        atleastOneLowercase &&
+        atleastOneNumber &&
+        atleastOneSpecialCharacter &&
+        atleast8Characters;
+  }
+
+  bool get atleastOneUppercase {
+    final passwordRegExp = RegExp(r'[A-Z]');
+    return passwordRegExp.hasMatch(this);
+  }
+
+  bool get atleastOneLowercase {
+    final passwordRegExp = RegExp(r'[a-z]');
+    return passwordRegExp.hasMatch(this);
+  }
+
+  bool get atleastOneNumber {
+    final passwordRegExp = RegExp(r'[0-9]');
+    return passwordRegExp.hasMatch(this);
+  }
+
+  bool get atleastOneSpecialCharacter {
+    final passwordRegExp = RegExp(r'[!@#^+?&\><*~]');
+    return passwordRegExp.hasMatch(this);
+  }
+
+  bool get atleast8Characters {
+    return length >= 8;
+  }
 }

@@ -10,6 +10,7 @@ List<RouteBase> get $appRoutes => [
   $onboardingRoute,
   $mainTabsRoute,
   $loginRoute,
+  $registrationRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -156,6 +157,32 @@ mixin $LoginRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/login');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $registrationRoute => GoRouteData.$route(
+  path: '/registration',
+  factory: $RegistrationRoute._fromState,
+);
+
+mixin $RegistrationRoute on GoRouteData {
+  static RegistrationRoute _fromState(GoRouterState state) =>
+      RegistrationRoute();
+
+  @override
+  String get location => GoRouteData.$location('/registration');
 
   @override
   void go(BuildContext context) => context.go(location);

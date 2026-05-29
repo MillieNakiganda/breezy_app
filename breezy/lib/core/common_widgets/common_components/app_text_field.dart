@@ -11,6 +11,9 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.validator,
     this.autoValidateMode,
+    this.borderColor,
+    this.hintTextColor,
+    this.onChanged,
   });
 
   final String? hintText;
@@ -19,6 +22,9 @@ class AppTextField extends StatelessWidget {
   final Widget? prefixIcon;
   final String? Function(String?)? validator;
   final AutovalidateMode? autoValidateMode;
+  final Color? borderColor;
+  final Color? hintTextColor;
+  final Function(String?)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +34,14 @@ class AppTextField extends StatelessWidget {
         color: context.theme.colorScheme.onSurface,
       ),
       validator: validator,
+      onChanged: onChanged,
       autovalidateMode: autoValidateMode,
 
       decoration: InputDecoration(
         floatingLabelBehavior: .never,
         hintText: hintText,
         hintStyle: context.textTheme.bodyMedium?.copyWith(
-          color: context.theme.colorScheme.onSurfaceVariant,
+          color: hintTextColor ?? context.theme.colorScheme.onSurfaceVariant,
         ),
         labelStyle: context.textTheme.bodyMedium?.copyWith(
           color: context.theme.colorScheme.onSurfaceVariant,
@@ -43,7 +50,7 @@ class AppTextField extends StatelessWidget {
         fillColor: context.theme.colorScheme.surfaceContainerLow,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: context.theme.colorScheme.outlineVariant,
+            color: borderColor ?? context.theme.colorScheme.outlineVariant,
             width: 0,
           ),
           borderRadius: BorderRadius.circular(8),
