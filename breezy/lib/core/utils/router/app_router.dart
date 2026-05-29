@@ -11,5 +11,5 @@ final GoRouter router = GoRouter(
   debugLogDiagnostics: kDebugMode,
   navigatorKey: rootNavigatorKey,
   routes: $appRoutes,
-  initialLocation: AppRoutes.registrationView,
+  initialLocation: AppRoutes.loginView,
 );

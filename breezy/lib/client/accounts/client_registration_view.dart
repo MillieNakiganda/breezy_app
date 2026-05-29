@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
+import '../../core/common_widgets/common_components/app_bar_widget.dart';
 import '../../core/common_widgets/common_components/app_button_icon_widget.dart';
 import '../../core/common_widgets/common_components/app_button_widget.dart';
 import '../../core/common_widgets/common_components/app_text_field.dart';
@@ -40,27 +41,7 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        centerTitle: false,
-        leading: IconButton(
-          iconSize: 18,
-          constraints: const BoxConstraints(minWidth: 40, minHeight: 40),
-          style: ButtonStyle(
-            backgroundColor: WidgetStateProperty.all(
-              context.theme.colorScheme.surfaceContainerHigh,
-            ),
-            shape: WidgetStateProperty.all(
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            ),
-          ),
-          icon: const Padding(
-            padding: EdgeInsets.only(left: 5.0),
-            child: Icon(Icons.arrow_back_ios),
-          ),
-          onPressed: () => context.pop(),
-        ),
-      ),
+      appBar: AppBarWidget(),
       body: SafeArea(
         child: Form(
           key: registrationKey,

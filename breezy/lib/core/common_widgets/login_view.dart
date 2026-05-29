@@ -222,7 +222,7 @@ class _LoginViewState extends State<LoginView> {
                                 TextSpan(
                                   recognizer: TapGestureRecognizer()
                                     ..onTap = () =>
-                                        context.go(AppRoutes.registrationView),
+                                        context.go(AppRoutes.usercategory),
                                   text: 'Create account',
                                   style: context.textTheme.bodySmall?.copyWith(
                                     color: context.theme.colorScheme.primary,

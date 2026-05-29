@@ -10,6 +10,7 @@ import '../../../client/bookings/history.dart';
 import '../../../client/shared/presentation/components/client_navigation_bar_widget.dart';
 import '../../common_widgets/login_view.dart';
 import '../../common_widgets/onboarding/presentation/views/onboarding_view.dart';
+import '../../common_widgets/onboarding/presentation/views/user_category_view.dart';
 import 'route_names.dart';
 part 'routes.g.dart';
 
@@ -91,6 +92,14 @@ class RegistrationRoute extends GoRouteData with $RegistrationRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return ClientRegistrationView();
+  }
+}
+
+@TypedGoRoute<UserCategoryRoute>(path: AppRoutes.usercategory)
+class UserCategoryRoute extends GoRouteData with $UserCategoryRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return UserCategoryView();
   }
 }
 
