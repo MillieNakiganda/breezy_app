@@ -1,6 +1,8 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
+import 'color_extension.dart';
+
 class AppTheme {
   AppTheme._();
 
@@ -29,6 +31,13 @@ class AppTheme {
       scaffoldBackgroundSchemeColor: SchemeColor.surface,
       appBarBackgroundSchemeColor: SchemeColor.surface,
     ),
+    extensions: const [
+      AppColors(
+        warning: Color(0xFFF59E0B),
+        warningContainer: Color(0xFFFEF3C7),
+        onWarningContainer: Color(0xFF92400E),
+      ),
+    ],
     useMaterial3ErrorColors: true,
     fontFamily: 'Sans',
   );
