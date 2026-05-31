@@ -4,6 +4,7 @@ import 'package:check_disposable_email/check_disposable_email.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../core/common_widgets/common_components/app_bar_widget.dart';
@@ -82,7 +83,7 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
                                   controller: nameController,
                                   hintText: 'First Name',
                                   prefixIcon: const Icon(
-                                    Icons.person_outline,
+                                    PhosphorIcons.user,
                                     size: 18,
                                   ),
                                 ),
@@ -94,7 +95,7 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
                                   controller: nameController,
                                   hintText: 'Last Name',
                                   prefixIcon: const Icon(
-                                    Icons.person_outline,
+                                    PhosphorIcons.user,
                                     size: 18,
                                   ),
                                 ),
@@ -106,7 +107,7 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
                             controller: emailController,
                             hintText: 'Email',
                             prefixIcon: const Icon(
-                              Icons.email_outlined,
+                              PhosphorIcons.envelopeSimple,
                               size: 18,
                             ),
                             validator: (value) {
@@ -140,7 +141,7 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
                             controller: phoneNumberController,
                             hintText: 'Phone Number',
                             prefixIcon: const Icon(
-                              Icons.phone_outlined,
+                              PhosphorIcons.phone,
                               size: 18,
                             ),
                           ),
@@ -152,7 +153,7 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
                             },
                             hintText: 'Password',
                             prefixIcon: const Icon(
-                              Icons.lock_outline,
+                              PhosphorIcons.lockSimple,
                               size: 18,
                             ),
                           ),

@@ -3,7 +3,6 @@ import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../domain/registration_step.dart';
 import 'components/dashed_border.dart';
 
 class KycStep extends StatefulWidget {

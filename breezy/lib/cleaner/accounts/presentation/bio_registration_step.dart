@@ -4,6 +4,7 @@ import 'package:check_disposable_email/check_disposable_email.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../core/common_widgets/common_components/app_button_icon_widget.dart';
@@ -46,10 +47,7 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
                         child: AppTextField(
                           controller: firstNameController,
                           hintText: 'First Name',
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            size: 18,
-                          ),
+                          prefixIcon: const Icon(PhosphorIcons.user, size: 18),
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -58,10 +56,7 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
                         child: AppTextField(
                           controller: lastNameController,
                           hintText: 'Last Name',
-                          prefixIcon: const Icon(
-                            Icons.person_outline,
-                            size: 18,
-                          ),
+                          prefixIcon: const Icon(PhosphorIcons.user, size: 18),
                         ),
                       ),
                     ],
@@ -70,7 +65,10 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
                   AppTextField(
                     controller: emailController,
                     hintText: 'Email',
-                    prefixIcon: const Icon(Icons.email_outlined, size: 18),
+                    prefixIcon: const Icon(
+                      PhosphorIcons.envelopeSimple,
+                      size: 18,
+                    ),
                     validator: (value) {
                       if (value == null || value.trim().isEmpty) {
                         return 'Please enter your email';
@@ -99,7 +97,7 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
                   AppTextField(
                     controller: phoneNumberController,
                     hintText: 'Phone Number',
-                    prefixIcon: const Icon(Icons.phone_outlined, size: 18),
+                    prefixIcon: const Icon(PhosphorIcons.phone, size: 18),
                   ),
 
                   const SizedBox(height: 16),

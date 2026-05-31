@@ -34,7 +34,7 @@ class OnboardingWidget extends StatelessWidget {
           alignment: Alignment.centerRight,
           child: TextButton(
             onPressed: () {
-              context.go(AppRoutes.home);
+              context.go(AppRoutes.loginView);
             },
             child: Text('Skip', style: context.textTheme.bodyLarge),
           ),

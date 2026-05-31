@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import 'client/shared/presentation/components/client_navigation_bar_widget.dart';
 import 'core/utils/router/app_router.dart';
 import 'core/utils/theme/app_theme.dart';
 

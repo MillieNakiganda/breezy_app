@@ -24,7 +24,7 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   void goToNextPage() {
     if (currentPage >= onboardingItems.length - 1) {
-      context.go(AppRoutes.home);
+      context.go(AppRoutes.loginView);
       return;
     }
 

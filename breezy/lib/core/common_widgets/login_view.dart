@@ -2,6 +2,7 @@ import 'package:check_disposable_email/check_disposable_email.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../utils/router/route_names.dart';
@@ -64,7 +65,7 @@ class _LoginViewState extends State<LoginView> {
                             autoValidateMode:
                                 AutovalidateMode.onUserInteraction,
                             prefixIcon: Icon(
-                              Icons.email_outlined,
+                              PhosphorIcons.envelopeSimple,
                               color: context.theme.colorScheme.onSurfaceVariant,
                             ),
                             validator: (value) {
@@ -99,11 +100,11 @@ class _LoginViewState extends State<LoginView> {
                             controller: passwordController,
                             hintText: 'Enter your password',
                             prefixIcon: Icon(
-                              Icons.lock_outlined,
+                              PhosphorIcons.lockSimple,
                               color: context.theme.colorScheme.onSurfaceVariant,
                             ),
                             suffixIcon: Icon(
-                              Icons.visibility_off_outlined,
+                              PhosphorIcons.eyeSlash,
                               color: context.theme.colorScheme.onSurfaceVariant,
                             ),
                             validator: (value) {

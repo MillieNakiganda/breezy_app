@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../../../../core/utils/theme/theme_extensions.dart';
 
@@ -44,10 +45,10 @@ class _ClientNavigationBarState extends State<ClientNavigationBar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              clientNavItem(Icons.home, 'Home', 0),
-              clientNavItem(Icons.book, 'Bookings', 1),
-              clientNavItem(Icons.history, 'History', 2),
-              clientNavItem(Icons.person, 'Profile', 3),
+              clientNavItem(PhosphorIcons.house, 'Home', 0),
+              clientNavItem(PhosphorIcons.calendarBlank, 'Bookings', 1),
+              clientNavItem(PhosphorIcons.clock, 'History', 2),
+              clientNavItem(PhosphorIcons.user, 'Profile', 3),
             ],
           ),
         ),
@@ -69,7 +70,10 @@ class _ClientNavigationBarState extends State<ClientNavigationBar> {
           ),
           Text(
             label,
-            style: TextStyle(
+            style: context.textTheme.bodySmall?.copyWith(
+              fontWeight: currentIndex == index
+                  ? FontWeight.bold
+                  : FontWeight.normal,
               color: currentIndex == index
                   ? context.theme.colorScheme.primary
                   : context.theme.colorScheme.outline,

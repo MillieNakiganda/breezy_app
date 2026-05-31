@@ -15,7 +15,7 @@ class MultiStepHeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final steps = ['Bio', 'KYC', 'Documents'];
     final primaryColor = context.theme.colorScheme.primary;
-    final greenColor = Color(0xff04b34f);
+    final greenColor = context.appColors.successContainer;
     final greyBorder = Colors.black.withValues(alpha: 0.4);
     final greyText = Colors.black.withValues(alpha: 0.8);
     return Padding(
@@ -30,7 +30,7 @@ class MultiStepHeaderWidget extends StatelessWidget {
           Color textColor;
           if (isPast) {
             bgColor = greenColor;
-            textColor = Color(0xff003c15);
+            textColor = context.appColors.onSuccessContainer;
           } else if (isActive) {
             bgColor = primaryColor;
             textColor = context.theme.colorScheme.onPrimary;

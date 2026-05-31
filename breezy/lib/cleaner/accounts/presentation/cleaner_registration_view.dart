@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/common_widgets/common_components/app_bar_widget.dart';
 import '../domain/registration_step.dart';
-import 'components/muti-step_header_widget.dart';
+import 'components/muti_step_header_widget.dart';
 import 'documents_review_step.dart';
 import 'kyc_registration_step.dart';
 

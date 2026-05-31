@@ -1,5 +1,6 @@
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../../../core/common_widgets/common_components/app_button_widget.dart';
 import 'components/document_widget.dart';
@@ -25,16 +26,17 @@ class _KYCPendingViewState extends State<KYCPendingView> {
               shape: BoxShape.circle,
             ),
             child: Padding(
-              padding: EdgeInsetsGeometry.all(12),
+              padding: EdgeInsetsGeometry.all(14),
               child: Container(
                 decoration: BoxDecoration(
                   color: context.appColors.warning,
                   shape: BoxShape.circle,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Icon(
-                    Icons.timer,
+                    PhosphorIcons.clock,
+                    size: 32,
                     color: context.theme.colorScheme.onPrimary,
                   ),
                 ),
@@ -82,17 +84,17 @@ class _KYCPendingViewState extends State<KYCPendingView> {
                 DocumentWidget(
                   title: 'Government ID',
                   description: 'Driver licence',
-                  icon: Icons.edit_document,
+                  icon: PhosphorIcons.creditCard,
                 ),
                 DocumentWidget(
                   title: 'Selfie Photo',
                   description: 'Identity match passed',
-                  icon: Icons.camera_enhance,
+                  icon: PhosphorIcons.camera,
                 ),
                 DocumentWidget(
                   title: 'Proof of address',
                   description: 'Utility bill',
-                  icon: Icons.file_copy,
+                  icon: PhosphorIcons.fileText,
                 ),
 
                 SizedBox(height: 8),
