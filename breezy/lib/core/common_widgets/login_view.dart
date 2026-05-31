@@ -134,6 +134,7 @@ class _LoginViewState extends State<LoginView> {
                             onPressed: () {
                               if (loginFormKey.currentState!.validate()) {
                                 // Perform login action
+                                context.go(AppRoutes.cleanerHome);
                               }
                             },
                           ),
