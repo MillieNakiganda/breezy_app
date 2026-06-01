@@ -1,5 +1,6 @@
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../../../core/common_widgets/common_components/app_cached_image_widget.dart';
 import '../../../core/domain/setting.dart';
@@ -41,11 +42,18 @@ class CleanerProfileView extends StatelessWidget {
                           child: Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: context.theme.colorScheme.onPrimary,
+                              color: context.theme.colorScheme.primary,
+                              border: Border.all(
+                                color: context.theme.colorScheme.onPrimary,
+                                width: 2,
+                              ),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: Icon(Icons.edit),
+                              child: Icon(
+                                PhosphorIcons.camera,
+                                color: context.theme.colorScheme.onPrimary,
+                              ),
                             ),
                           ),
                         ),
@@ -102,6 +110,9 @@ class CleanerProfileView extends StatelessWidget {
                           SizedBox(height: 8),
                           ...groupSettings.map(
                             (setting) => ListTile(
+                              onTap: setting.onTap != null
+                                  ? () => setting.onTap!(context)
+                                  : null,
                               title: Text(
                                 setting.title,
                                 style: context.textTheme.bodyMedium,

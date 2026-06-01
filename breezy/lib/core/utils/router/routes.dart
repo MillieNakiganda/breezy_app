@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../cleaner/accounts/presentation/cleaner_profile_view.dart';
 import '../../../cleaner/accounts/presentation/cleaner_registration_view.dart';
+import '../../../cleaner/accounts/presentation/profile_details_view.dart';
 import '../../../cleaner/bookings/presentation/cleaner_bookings_view.dart';
 import '../../../cleaner/bookings/presentation/earnings_view.dart';
 import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
@@ -127,7 +128,14 @@ class UserCategoryRoute extends GoRouteData with $UserCategoryRoute {
     ),
     TypedStatefulShellBranch(
       routes: [
-        TypedGoRoute<CleanerProfileRoute>(path: AppRoutes.cleanerProfile),
+        TypedGoRoute<CleanerProfileRoute>(
+          path: AppRoutes.cleanerProfile,
+          routes: [
+            TypedGoRoute<CleanerProfileDetailsRoute>(
+              path: AppRoutes.cleanerProfileDetails,
+            ),
+          ],
+        ),
       ],
     ),
   ],
@@ -173,4 +181,12 @@ class CleanerBookingsRoute extends GoRouteData with $CleanerBookingsRoute {
   }
 }
 
-//childreen of the branch sells will have this static final GlobalKey<NavigatorState> $parentNavigatorKey = rootNavigatorKey;
+@TypedGoRoute<CleanerProfileDetailsRoute>(path: AppRoutes.cleanerProfileDetails)
+class CleanerProfileDetailsRoute extends GoRouteData
+    with $CleanerProfileDetailsRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleanerProfileDetailsView();
+  }
+}

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../utils/router/route_names.dart';
 import '../../utils/theme/theme_extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -27,7 +26,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           padding: EdgeInsets.only(left: 5.0),
           child: Icon(Icons.arrow_back_ios),
         ),
-        onPressed: () => context.go(AppRoutes.loginView),
+        onPressed: () => context.pop(),
       ),
     );
   }

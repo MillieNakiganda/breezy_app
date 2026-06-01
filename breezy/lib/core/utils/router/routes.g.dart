@@ -13,6 +13,7 @@ List<RouteBase> get $appRoutes => [
   $registrationRoute,
   $userCategoryRoute,
   $cleanerMainTabsRoute,
+  $cleanerProfileDetailsRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -262,6 +263,12 @@ RouteBase get $cleanerMainTabsRoute => StatefulShellRouteData.$route(
         GoRouteData.$route(
           path: '/cleanerProfile',
           factory: $CleanerProfileRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: '/cleanerProfileDetails',
+              factory: $CleanerProfileDetailsRoute._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -354,3 +361,29 @@ mixin $CleanerProfileRoute on GoRouteData {
   @override
   void replace(BuildContext context) => context.replace(location);
 }
+
+mixin $CleanerProfileDetailsRoute on GoRouteData {
+  static CleanerProfileDetailsRoute _fromState(GoRouterState state) =>
+      CleanerProfileDetailsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerProfileDetails');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $cleanerProfileDetailsRoute => GoRouteData.$route(
+  path: '/cleanerProfileDetails',
+  factory: $CleanerProfileDetailsRoute._fromState,
+);

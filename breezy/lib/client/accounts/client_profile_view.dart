@@ -69,6 +69,9 @@ class ClientProfileView extends StatelessWidget {
                           ),
                           ...groupSettings.map(
                             (setting) => ListTile(
+                              onTap: setting.onTap != null
+                                  ? () => setting.onTap!(context)
+                                  : null,
                               title: Text(
                                 setting.title,
                                 style: context.textTheme.bodyMedium,

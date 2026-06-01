@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
+import '../utils/router/routes.dart';
+
 class Setting {
   final IconData leadingIcon;
   final String title;
   final IconData trailingIcon;
-  final VoidCallback? onTap;
+  final void Function(BuildContext context)? onTap;
   final String group;
 
   Setting({
     required this.leadingIcon,
     required this.title,
     required this.trailingIcon,
-    required this.onTap,
+    this.onTap,
     required this.group,
   });
 }
@@ -68,7 +70,7 @@ final cleanerSettings = [
     group: 'Account',
     title: 'Account Information',
     leadingIcon: PhosphorIcons.user,
-    onTap: null,
+    onTap: (context) => CleanerProfileDetailsRoute().push(context),
     trailingIcon: PhosphorIcons.caretRight,
   ),
   Setting(
