@@ -1,11 +1,11 @@
-import 'package:breezy/client/accounts/domain/setting.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/common_widgets/common_components/app_cached_image_widget.dart';
+import '../../core/domain/setting.dart';
 
-class ProfileView extends StatelessWidget {
-  const ProfileView({super.key});
+class ClientProfileView extends StatelessWidget {
+  const ClientProfileView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class ProfileView extends StatelessWidget {
                     ),
 
                     SizedBox(height: 32),
-                    ...groupedSettingsList().entries.map((entry) {
+                    ...clientGroupedSettingsList().entries.map((entry) {
                       final groupName = entry.key;
                       final groupSettings = entry.value;
 

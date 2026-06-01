@@ -17,7 +17,7 @@ class Setting {
   });
 }
 
-final settings = [
+final clientSettings = [
   Setting(
     group: 'Account',
     title: 'Account Information',
@@ -55,9 +55,55 @@ final settings = [
   ),
 ];
 
-Map<String, List<Setting>> groupedSettingsList() {
+Map<String, List<Setting>> clientGroupedSettingsList() {
   final groupedSettings = <String, List<Setting>>{};
-  for (final setting in settings) {
+  for (final setting in clientSettings) {
+    groupedSettings.putIfAbsent(setting.group, () => []).add(setting);
+  }
+  return groupedSettings;
+}
+
+final cleanerSettings = [
+  Setting(
+    group: 'Account',
+    title: 'Account Information',
+    leadingIcon: PhosphorIcons.user,
+    onTap: null,
+    trailingIcon: PhosphorIcons.caretRight,
+  ),
+  Setting(
+    group: 'Account',
+    title: 'Change Password',
+    leadingIcon: PhosphorIcons.lockSimple,
+    onTap: null,
+    trailingIcon: PhosphorIcons.caretRight,
+  ),
+  Setting(
+    group: 'Account',
+    title: 'Availability',
+    leadingIcon: PhosphorIcons.calendarBlank,
+    onTap: null,
+    trailingIcon: PhosphorIcons.caretRight,
+  ),
+  Setting(
+    group: 'Legal',
+    title: 'Terms & Conditions',
+    leadingIcon: PhosphorIcons.file,
+    onTap: null,
+    trailingIcon: PhosphorIcons.caretRight,
+  ),
+  Setting(
+    group: 'Legal',
+    title: 'Privacy Policy',
+    leadingIcon: PhosphorIcons.fileText,
+    onTap: null,
+    trailingIcon: PhosphorIcons.caretRight,
+  ),
+];
+
+Map<String, List<Setting>> cleanerGroupedSettingsList() {
+  final groupedSettings = <String, List<Setting>>{};
+  for (final setting in cleanerSettings) {
     groupedSettings.putIfAbsent(setting.group, () => []).add(setting);
   }
   return groupedSettings;
