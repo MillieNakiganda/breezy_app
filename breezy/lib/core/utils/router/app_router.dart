@@ -3,6 +3,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import 'route_names.dart';
+
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final clientShellNavigatorKey = GlobalKey<NavigatorState>();
 final cleanerShellNavigatorKey = GlobalKey<NavigatorState>();

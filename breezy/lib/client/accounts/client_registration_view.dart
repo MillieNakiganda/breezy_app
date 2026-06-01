@@ -1,5 +1,5 @@
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
-import 'package:breezy/core/utils/validators/validation_extensions.dart';
+import 'package:breezy/core/utils/app_extensions/validation_extensions.dart';
 import 'package:check_disposable_email/check_disposable_email.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
+import 'package:breezy/core/utils/app_extensions/image_extension.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/router/route_names.dart';
@@ -20,9 +20,6 @@ class OnboardingWidget extends StatelessWidget {
   final String description;
   final List<OnboardingTitlePart> titleParts;
   final int index;
-
-  static const Color highlightColor = Color(0xFFE68A2E);
-  static const Color normalColor = Color(0xFF1A1A1A);
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +42,29 @@ class OnboardingWidget extends StatelessWidget {
             titleParts: titleParts,
             description: description,
           ),
-          Expanded(flex: 2, child: SvgPicture.asset(imagePath)),
+          Expanded(
+            flex: 2,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Image.asset(
+                  imagePath,
+                  cacheWidth: constraints.maxWidth.cacheSize(context),
+                );
+              },
+            ),
+          ),
         ] else ...[
-          Expanded(flex: 2, child: SvgPicture.asset(imagePath)),
+          Expanded(
+            flex: 2,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                return Image.asset(
+                  imagePath,
+                  cacheWidth: constraints.maxWidth.cacheSize(context),
+                );
+              },
+            ),
+          ),
           TitleDescriptionWidget(
             titleParts: titleParts,
             description: description,

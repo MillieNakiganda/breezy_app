@@ -6,7 +6,7 @@ import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../utils/router/route_names.dart';
-import '../utils/validators/validation_extensions.dart';
+import '../utils/app_extensions/validation_extensions.dart';
 import 'common_components/app_button_icon_widget.dart';
 import 'common_components/app_button_widget.dart';
 import 'common_components/app_text_field.dart';
