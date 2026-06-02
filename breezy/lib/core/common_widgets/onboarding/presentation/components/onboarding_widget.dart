@@ -1,5 +1,6 @@
 import 'package:breezy/core/utils/app_extensions/image_extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../utils/router/route_names.dart';
@@ -42,29 +43,9 @@ class OnboardingWidget extends StatelessWidget {
             titleParts: titleParts,
             description: description,
           ),
-          Expanded(
-            flex: 2,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Image.asset(
-                  imagePath,
-                  cacheWidth: constraints.maxWidth.cacheSize(context),
-                );
-              },
-            ),
-          ),
+          Expanded(flex: 2, child: SvgPicture.asset(imagePath)),
         ] else ...[
-          Expanded(
-            flex: 2,
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                return Image.asset(
-                  imagePath,
-                  cacheWidth: constraints.maxWidth.cacheSize(context),
-                );
-              },
-            ),
-          ),
+          Expanded(flex: 2, child: SvgPicture.asset(imagePath)),
           TitleDescriptionWidget(
             titleParts: titleParts,
             description: description,
