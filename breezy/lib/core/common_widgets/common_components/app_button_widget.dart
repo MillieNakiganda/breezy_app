@@ -12,6 +12,7 @@ class AppButtonWidget extends StatelessWidget {
     this.borderSideColor,
     this.labelColor,
     this.buttonWidth,
+    this.buttonHeight,
   });
 
   final String label;
@@ -21,6 +22,7 @@ class AppButtonWidget extends StatelessWidget {
   final Color? borderSideColor;
   final Color? labelColor;
   final double? buttonWidth;
+  final double? buttonHeight;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +32,7 @@ class AppButtonWidget extends StatelessWidget {
         splashFactory: NoSplash.splashFactory,
         elevation: 0,
         backgroundColor: backgroundColor ?? context.theme.colorScheme.primary,
-        minimumSize: Size(buttonWidth ?? double.infinity, 48),
+        minimumSize: Size(buttonWidth ?? double.infinity, buttonHeight ?? 48),
         side: BorderSide(
           color: borderSideColor ?? Colors.transparent,
           width: borderSideWidth ?? 0,

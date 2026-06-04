@@ -12,4 +12,6 @@ class AppRoutes {
   static const String earnings = '/earnings';
   static const String cleanerProfile = '/cleanerProfile';
   static const String cleanerProfileDetails = '/cleanerProfileDetails';
+  static const String cleanerDetailsView = '/cleanerDetailsView';
+  static const String animationHome = '/animationHome';
 }

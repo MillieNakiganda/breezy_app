@@ -9,6 +9,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: context.theme.scaffoldBackgroundColor,
       elevation: 0,
       centerTitle: false,
       leading: IconButton(

@@ -1,4 +1,4 @@
-import 'package:breezy/client/bookings/bookings.dart';
+import 'package:breezy/client/bookings/presentation/bookings.dart';
 import 'package:breezy/client/accounts/client_profile_view.dart';
 import 'package:breezy/core/utils/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +11,9 @@ import '../../../cleaner/bookings/presentation/cleaner_bookings_view.dart';
 import '../../../cleaner/bookings/presentation/earnings_view.dart';
 import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
 import '../../../cleaner/shared/presentation/components/cleaner_navigation_bar.dart';
-import '../../../client/accounts/client_registration_view.dart';
+import '../../../client/bookings/presentation/cleaner_details_view.dart';
 import '../../../client/shared/presentation/client_home_view.dart';
-import '../../../client/bookings/history.dart';
+import '../../../client/bookings/presentation/history.dart';
 import '../../../client/shared/presentation/components/client_navigation_bar_widget.dart';
 import '../../common_widgets/login_view.dart';
 import '../../common_widgets/onboarding/presentation/views/onboarding_view.dart';
@@ -32,7 +32,17 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
 @TypedStatefulShellRoute<ClientMainTabsRoute>(
   branches: [
     TypedStatefulShellBranch(
-      routes: [TypedGoRoute<HomeRoute>(path: AppRoutes.clientHome)],
+      routes: [
+        TypedGoRoute<HomeRoute>(
+          path: AppRoutes.clientHome,
+
+          routes: [
+            TypedGoRoute<CleanerDetailsRoute>(
+              path: AppRoutes.cleanerDetailsView,
+            ),
+          ],
+        ),
+      ],
     ),
 
     TypedStatefulShellBranch(
@@ -188,5 +198,14 @@ class CleanerProfileDetailsRoute extends GoRouteData
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const CleanerProfileDetailsView();
+  }
+}
+
+@TypedGoRoute<CleanerDetailsRoute>(path: AppRoutes.cleanerDetailsView)
+class CleanerDetailsRoute extends GoRouteData with $CleanerDetailsRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleanerDetailsView();
   }
 }

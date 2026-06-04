@@ -14,6 +14,7 @@ List<RouteBase> get $appRoutes => [
   $userCategoryRoute,
   $cleanerMainTabsRoute,
   $cleanerProfileDetailsRoute,
+  $cleanerDetailsRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -44,7 +45,16 @@ RouteBase get $clientMainTabsRoute => StatefulShellRouteData.$route(
   branches: [
     StatefulShellBranchData.$branch(
       routes: [
-        GoRouteData.$route(path: '/clientHome', factory: $HomeRoute._fromState),
+        GoRouteData.$route(
+          path: '/clientHome',
+          factory: $HomeRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: '/cleanerDetailsView',
+              factory: $CleanerDetailsRoute._fromState,
+            ),
+          ],
+        ),
       ],
     ),
     StatefulShellBranchData.$branch(
@@ -81,6 +91,27 @@ mixin $HomeRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/clientHome');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleanerDetailsRoute on GoRouteData {
+  static CleanerDetailsRoute _fromState(GoRouterState state) =>
+      CleanerDetailsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerDetailsView');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -386,4 +417,9 @@ mixin $CleanerProfileDetailsRoute on GoRouteData {
 RouteBase get $cleanerProfileDetailsRoute => GoRouteData.$route(
   path: '/cleanerProfileDetails',
   factory: $CleanerProfileDetailsRoute._fromState,
+);
+
+RouteBase get $cleanerDetailsRoute => GoRouteData.$route(
+  path: '/cleanerDetailsView',
+  factory: $CleanerDetailsRoute._fromState,
 );

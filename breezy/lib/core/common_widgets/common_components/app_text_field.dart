@@ -14,6 +14,7 @@ class AppTextField extends StatelessWidget {
     this.borderColor,
     this.hintTextColor,
     this.onChanged,
+    this.borderRadius,
   });
 
   final String? hintText;
@@ -25,6 +26,7 @@ class AppTextField extends StatelessWidget {
   final Color? borderColor;
   final Color? hintTextColor;
   final Function(String?)? onChanged;
+  final double? borderRadius;
 
   @override
   Widget build(BuildContext context) {
@@ -53,18 +55,18 @@ class AppTextField extends StatelessWidget {
             color: borderColor ?? context.theme.colorScheme.outlineVariant,
             width: 0,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: context.theme.colorScheme.primary,
             width: 0,
           ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
         ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent, width: 0),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(borderRadius ?? 8.0),
         ),
         suffixIcon: suffixIcon,
         prefixIcon: prefixIcon,
