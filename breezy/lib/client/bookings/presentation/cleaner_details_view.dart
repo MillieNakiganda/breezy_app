@@ -115,10 +115,7 @@ class CleanerDetailsView extends StatelessWidget {
                                     ),
                                     Text(
                                       'Rating',
-                                      style: context.theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      style: context.theme.textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -142,10 +139,7 @@ class CleanerDetailsView extends StatelessWidget {
                                     ),
                                     Text(
                                       'Jobs',
-                                      style: context.theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      style: context.theme.textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
@@ -169,10 +163,7 @@ class CleanerDetailsView extends StatelessWidget {
                                     ),
                                     Text(
                                       'on Breezy',
-                                      style: context.theme.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      style: context.theme.textTheme.bodyMedium,
                                     ),
                                   ],
                                 ),
