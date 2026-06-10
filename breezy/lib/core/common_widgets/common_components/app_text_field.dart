@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../utils/theme/theme_extensions.dart';
 
@@ -15,6 +16,8 @@ class AppTextField extends StatelessWidget {
     this.hintTextColor,
     this.onChanged,
     this.borderRadius,
+    this.inputFormatters,
+    this.keyboardType,
   });
 
   final String? hintText;
@@ -27,6 +30,8 @@ class AppTextField extends StatelessWidget {
   final Color? hintTextColor;
   final Function(String?)? onChanged;
   final double? borderRadius;
+  final List<TextInputFormatter>? inputFormatters;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,8 @@ class AppTextField extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       autovalidateMode: autoValidateMode,
-
+      inputFormatters: inputFormatters,
+      keyboardType: keyboardType,
       decoration: InputDecoration(
         floatingLabelBehavior: .never,
         hintText: hintText,
