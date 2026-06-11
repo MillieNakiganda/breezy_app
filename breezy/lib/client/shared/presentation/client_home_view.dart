@@ -145,11 +145,12 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                 ],
               ),
               Expanded(
-                child: ListView(
+                child: ListView.builder(
+                  itemCount: 4,
                   padding: EdgeInsets.zero,
                   physics: BouncingScrollPhysics(),
-                  children: [
-                    GestureDetector(
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
                       onTap: () => showApplicationBottomSheet(context),
 
                       child: Hero(
@@ -166,10 +167,8 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                         },
                         child: CardWidget(),
                       ),
-                    ),
-                    CardWidget(),
-                    CardWidget(),
-                  ],
+                    );
+                  },
                 ),
               ),
             ],

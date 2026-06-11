@@ -1,4 +1,4 @@
-import 'package:breezy/client/bookings/presentation/bookings.dart';
+import 'package:breezy/client/bookings/presentation/client_bookings.dart';
 import 'package:breezy/client/accounts/client_profile_view.dart';
 import 'package:breezy/core/utils/router/app_router.dart';
 import 'package:flutter/material.dart';
