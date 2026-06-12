@@ -153,20 +153,23 @@ class _ClientHomeViewState extends State<ClientHomeView> {
                     return GestureDetector(
                       onTap: () => showApplicationBottomSheet(context),
 
-                      child: Hero(
-                        tag: 'cleanerDetails',
-                        placeholderBuilder: (context, heroSize, child) {
-                          return Container(
-                            width: heroSize.width,
-                            height: heroSize.height,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade300,
-                              shape: BoxShape.circle,
-                            ),
-                          );
-                        },
-                        child: CardWidget(),
-                      ),
+                      child:
+                          // Hero(
+                          //   tag: 'cleanerDetails',
+                          //   placeholderBuilder: (context, heroSize, child) {
+                          //     return
+                          // Container(
+                          //   width: heroSize.width,
+                          //   height: heroSize.height,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.grey.shade300,
+                          //     shape: BoxShape.circle,
+                          //   ),
+                          // );
+                          // },
+                          // child:
+                          CardWidget(),
+                      //  ),
                     );
                   },
                 ),

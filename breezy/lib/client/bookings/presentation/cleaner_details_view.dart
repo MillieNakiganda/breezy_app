@@ -1,9 +1,11 @@
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/common_widgets/common_components/app_bar_widget.dart';
 import '../../../../core/common_widgets/common_components/app_cached_image_widget.dart';
 import '../../../core/common_widgets/common_components/app_button_widget.dart';
+import '../../../core/utils/router/route_names.dart';
 
 class CleanerDetailsView extends StatelessWidget {
   const CleanerDetailsView({super.key});
@@ -26,7 +28,9 @@ class CleanerDetailsView extends StatelessWidget {
           label: 'Book Now',
           backgroundColor: context.theme.colorScheme.primary,
           labelColor: context.theme.colorScheme.onPrimary,
-          onPressed: () {},
+          onPressed: () {
+            context.push(AppRoutes.clientBookingView);
+          },
         ),
       ),
       body: Padding(
@@ -47,17 +51,18 @@ class CleanerDetailsView extends StatelessWidget {
                           clipBehavior: Clip.none,
 
                           children: [
-                            Hero(
-                              tag: 'cleanerDetails',
-                              child: ClipOval(
-                                child: AppCachedImageWidget(
-                                  width: 150,
-                                  height: 150,
-                                  imageUrl:
-                                      'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
-                                ),
+                            // Hero(
+                            //   tag: 'cleanerDetails',
+                            //   child:
+                            ClipOval(
+                              child: AppCachedImageWidget(
+                                width: 150,
+                                height: 150,
+                                imageUrl:
+                                    'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
                               ),
                             ),
+                            // ),
                             Positioned(
                               bottom: 0,
                               right: 0,

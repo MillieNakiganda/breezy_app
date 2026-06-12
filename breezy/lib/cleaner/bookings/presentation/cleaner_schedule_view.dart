@@ -259,7 +259,7 @@ class _CleanerBookingsViewState extends State<CleanerBookingsView> {
           ),
           SizedBox(height: 16),
           Text(
-            'Time slots for ${DateFormat('EEEE, MMMM dd, yyyy').format(this.selectedDay ?? DateTime.now())}',
+            'Time slots for ${DateFormat('EEEE, MMMM dd, yyyy').format(selectedDay ?? DateTime.now())}',
             style: textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
           ),
           SizedBox(height: 16),

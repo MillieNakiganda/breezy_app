@@ -1,4 +1,4 @@
-import 'package:breezy/client/bookings/presentation/client_bookings.dart';
+import 'package:breezy/client/bookings/presentation/client_bookings_history_view.dart';
 import 'package:breezy/client/accounts/client_profile_view.dart';
 import 'package:breezy/core/utils/router/app_router.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import '../../../cleaner/bookings/presentation/earnings_view.dart';
 import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
 import '../../../cleaner/shared/presentation/components/cleaner_navigation_bar.dart';
 import '../../../client/bookings/presentation/cleaner_details_view.dart';
+import '../../../client/bookings/presentation/client_booking_view.dart';
 import '../../../client/shared/presentation/client_home_view.dart';
 import '../../../client/bookings/presentation/history.dart';
 import '../../../client/shared/presentation/components/client_navigation_bar_widget.dart';
@@ -39,6 +40,11 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
           routes: [
             TypedGoRoute<CleanerDetailsRoute>(
               path: AppRoutes.cleanerDetailsView,
+              routes: [
+                TypedGoRoute<ClientBookingRoute>(
+                  path: AppRoutes.clientBookingView,
+                ),
+              ],
             ),
           ],
         ),
@@ -207,5 +213,14 @@ class CleanerDetailsRoute extends GoRouteData with $CleanerDetailsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const CleanerDetailsView();
+  }
+}
+
+@TypedGoRoute<ClientBookingRoute>(path: AppRoutes.clientBookingView)
+class ClientBookingRoute extends GoRouteData with $ClientBookingRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ClientBookingView();
   }
 }
