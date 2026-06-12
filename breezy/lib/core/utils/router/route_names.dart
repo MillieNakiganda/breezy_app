@@ -15,4 +15,6 @@ class AppRoutes {
   static const String cleanerDetailsView = '/cleanerDetailsView';
   static const String animationHome = '/animationHome';
   static const String clientBookingView = '/clientBookingView';
+  static const String bookingConfirmationView =
+      '/clientBookingConfirmationView';
 }

@@ -7,10 +7,12 @@ class DocumentWidget extends StatelessWidget {
     required this.title,
     required this.description,
     required this.icon,
+    this.addTrailingWidget = true,
   });
   final String title;
   final String description;
   final IconData icon;
+  final bool addTrailingWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -36,20 +38,22 @@ class DocumentWidget extends StatelessWidget {
           color: context.theme.colorScheme.outline,
         ),
       ),
-      trailing: Container(
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: context.theme.colorScheme.primaryContainer,
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(6.0),
-          child: Icon(
-            Icons.check,
-            size: 14,
-            color: context.theme.colorScheme.onPrimaryContainer,
-          ),
-        ),
-      ),
+      trailing: addTrailingWidget
+          ? Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: context.theme.colorScheme.primaryContainer,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: Icon(
+                  Icons.check,
+                  size: 14,
+                  color: context.theme.colorScheme.onPrimaryContainer,
+                ),
+              ),
+            )
+          : SizedBox.shrink(),
     );
   }
 }

@@ -11,6 +11,7 @@ import '../../../cleaner/bookings/presentation/cleaner_schedule_view.dart';
 import '../../../cleaner/bookings/presentation/earnings_view.dart';
 import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
 import '../../../cleaner/shared/presentation/components/cleaner_navigation_bar.dart';
+import '../../../client/bookings/presentation/booking_confirmation_view.dart';
 import '../../../client/bookings/presentation/cleaner_details_view.dart';
 import '../../../client/bookings/presentation/client_booking_view.dart';
 import '../../../client/shared/presentation/client_home_view.dart';
@@ -43,6 +44,14 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
               routes: [
                 TypedGoRoute<ClientBookingRoute>(
                   path: AppRoutes.clientBookingView,
+                  routes: [
+                    TypedGoRoute<ClientBookingConfirmationRoute>(
+                      path: AppRoutes.bookingConfirmationView,
+                      routes: [
+                    
+                  ]
+                ),
+                  ],
                 ),
               ],
             ),
@@ -222,5 +231,17 @@ class ClientBookingRoute extends GoRouteData with $ClientBookingRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ClientBookingView();
+  }
+}
+
+@TypedGoRoute<ClientBookingConfirmationRoute>(
+  path: AppRoutes.bookingConfirmationView,
+)
+class ClientBookingConfirmationRoute extends GoRouteData
+    with $ClientBookingConfirmationRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const BookingConfirmationView();
   }
 }

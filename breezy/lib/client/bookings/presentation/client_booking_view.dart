@@ -1,6 +1,8 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
+import 'package:breezy/core/utils/router/route_names.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -119,7 +121,9 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                       buttonWidth: 140,
                       backgroundColor: colorTheme.primary,
                       labelColor: colorTheme.onPrimary,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push(AppRoutes.bookingConfirmationView);
+                      },
                     ),
                   ],
                 ),

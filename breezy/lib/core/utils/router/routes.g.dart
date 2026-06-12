@@ -16,6 +16,7 @@ List<RouteBase> get $appRoutes => [
   $cleanerProfileDetailsRoute,
   $cleanerDetailsRoute,
   $clientBookingRoute,
+  $clientBookingConfirmationRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -57,6 +58,12 @@ RouteBase get $clientMainTabsRoute => StatefulShellRouteData.$route(
                 GoRouteData.$route(
                   path: '/clientBookingView',
                   factory: $ClientBookingRoute._fromState,
+                  routes: [
+                    GoRouteData.$route(
+                      path: '/clientBookingConfirmationView',
+                      factory: $ClientBookingConfirmationRoute._fromState,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -140,6 +147,28 @@ mixin $ClientBookingRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/clientBookingView');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ClientBookingConfirmationRoute on GoRouteData {
+  static ClientBookingConfirmationRoute _fromState(GoRouterState state) =>
+      ClientBookingConfirmationRoute();
+
+  @override
+  String get location =>
+      GoRouteData.$location('/clientBookingConfirmationView');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -455,4 +484,9 @@ RouteBase get $cleanerDetailsRoute => GoRouteData.$route(
 RouteBase get $clientBookingRoute => GoRouteData.$route(
   path: '/clientBookingView',
   factory: $ClientBookingRoute._fromState,
+);
+
+RouteBase get $clientBookingConfirmationRoute => GoRouteData.$route(
+  path: '/clientBookingConfirmationView',
+  factory: $ClientBookingConfirmationRoute._fromState,
 );
