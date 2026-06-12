@@ -82,7 +82,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
     final textTheme = context.textTheme;
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(title: 'New Booking'),
       bottomNavigationBar: selectedAvailableTime == null
           ? null
           : Material(

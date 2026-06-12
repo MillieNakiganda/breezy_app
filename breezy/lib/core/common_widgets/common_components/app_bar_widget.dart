@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../utils/theme/theme_extensions.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+  const AppBarWidget({super.key, this.title});
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +13,13 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: context.theme.scaffoldBackgroundColor,
       elevation: 0,
       centerTitle: false,
+      title: Text(
+        title ?? '',
+        style: context.textTheme.headlineSmall?.copyWith(
+          fontWeight: FontWeight.w500,
+          color: context.theme.colorScheme.onSurface,
+        ),
+      ),
       leading: IconButton(
         iconSize: 18,
         constraints: const BoxConstraints(minWidth: 40, minHeight: 40),

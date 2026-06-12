@@ -17,4 +17,6 @@ class AppRoutes {
   static const String clientBookingView = '/clientBookingView';
   static const String bookingConfirmationView =
       '/clientBookingConfirmationView';
+  static const String cleaningLifeCycle = '/cleaningLifeCycle';
+  static const String paymentConfirmation = '/paymentConfirmationView';
 }

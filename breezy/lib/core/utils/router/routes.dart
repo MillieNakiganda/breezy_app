@@ -13,7 +13,9 @@ import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
 import '../../../cleaner/shared/presentation/components/cleaner_navigation_bar.dart';
 import '../../../client/bookings/presentation/booking_confirmation_view.dart';
 import '../../../client/bookings/presentation/cleaner_details_view.dart';
+import '../../../client/bookings/presentation/cleaning_lifecycle_view.dart';
 import '../../../client/bookings/presentation/client_booking_view.dart';
+import '../../../client/bookings/presentation/payment_confirmation_view.dart';
 import '../../../client/shared/presentation/client_home_view.dart';
 import '../../../client/bookings/presentation/history.dart';
 import '../../../client/shared/presentation/components/client_navigation_bar_widget.dart';
@@ -48,9 +50,21 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
                     TypedGoRoute<ClientBookingConfirmationRoute>(
                       path: AppRoutes.bookingConfirmationView,
                       routes: [
+                        TypedGoRoute<CleaningLifeCycleRoute>(
+                          path: AppRoutes.cleaningLifeCycle,
+                          routes: [
+                            TypedGoRoute<PaymentConfirmationRoute>(
+                              path: AppRoutes.paymentConfirmation,
+                              routes: [
+                            
+                        
                     
                   ]
                 ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -243,5 +257,24 @@ class ClientBookingConfirmationRoute extends GoRouteData
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const BookingConfirmationView();
+  }
+}
+
+@TypedGoRoute<CleaningLifeCycleRoute>(path: AppRoutes.cleaningLifeCycle)
+class CleaningLifeCycleRoute extends GoRouteData with $CleaningLifeCycleRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleaningLifeCycleView();
+  }
+}
+
+@TypedGoRoute<PaymentConfirmationRoute>(path: AppRoutes.paymentConfirmation)
+class PaymentConfirmationRoute extends GoRouteData
+    with $PaymentConfirmationRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const PaymentConfirmationView();
   }
 }

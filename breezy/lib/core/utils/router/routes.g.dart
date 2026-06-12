@@ -17,6 +17,8 @@ List<RouteBase> get $appRoutes => [
   $cleanerDetailsRoute,
   $clientBookingRoute,
   $clientBookingConfirmationRoute,
+  $cleaningLifeCycleRoute,
+  $paymentConfirmationRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -62,6 +64,18 @@ RouteBase get $clientMainTabsRoute => StatefulShellRouteData.$route(
                     GoRouteData.$route(
                       path: '/clientBookingConfirmationView',
                       factory: $ClientBookingConfirmationRoute._fromState,
+                      routes: [
+                        GoRouteData.$route(
+                          path: '/cleaningLifeCycle',
+                          factory: $CleaningLifeCycleRoute._fromState,
+                          routes: [
+                            GoRouteData.$route(
+                              path: '/paymentConfirmationView',
+                              factory: $PaymentConfirmationRoute._fromState,
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -169,6 +183,48 @@ mixin $ClientBookingConfirmationRoute on GoRouteData {
   @override
   String get location =>
       GoRouteData.$location('/clientBookingConfirmationView');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleaningLifeCycleRoute on GoRouteData {
+  static CleaningLifeCycleRoute _fromState(GoRouterState state) =>
+      CleaningLifeCycleRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleaningLifeCycle');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $PaymentConfirmationRoute on GoRouteData {
+  static PaymentConfirmationRoute _fromState(GoRouterState state) =>
+      PaymentConfirmationRoute();
+
+  @override
+  String get location => GoRouteData.$location('/paymentConfirmationView');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -489,4 +545,14 @@ RouteBase get $clientBookingRoute => GoRouteData.$route(
 RouteBase get $clientBookingConfirmationRoute => GoRouteData.$route(
   path: '/clientBookingConfirmationView',
   factory: $ClientBookingConfirmationRoute._fromState,
+);
+
+RouteBase get $cleaningLifeCycleRoute => GoRouteData.$route(
+  path: '/cleaningLifeCycle',
+  factory: $CleaningLifeCycleRoute._fromState,
+);
+
+RouteBase get $paymentConfirmationRoute => GoRouteData.$route(
+  path: '/paymentConfirmationView',
+  factory: $PaymentConfirmationRoute._fromState,
 );

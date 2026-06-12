@@ -1,11 +1,13 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../cleaner/accounts/presentation/components/document_widget.dart';
 import '../../../core/common_widgets/common_components/app_bar_widget.dart';
+import '../../../core/utils/router/route_names.dart';
 
 class BookingConfirmationView extends StatefulWidget {
   const BookingConfirmationView({super.key});
@@ -15,17 +17,12 @@ class BookingConfirmationView extends StatefulWidget {
       _BookingConfirmationViewState();
 }
 
-class _BookingConfirmationViewState extends State<BookingConfirmationView>
-    with SingleTickerProviderStateMixin {
-  late final tabBarController = TabController(length: 3, vsync: this);
-  final List<String> tabItems = ["Upcoming", "Cancelled", "Completed"];
-  int selectedIndex = 0;
-
+class _BookingConfirmationViewState extends State<BookingConfirmationView> {
   @override
   Widget build(BuildContext context) {
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBarWidget(),
+      appBar: AppBarWidget(title: 'Booking Confirmation'),
       body: Padding(
         padding: const EdgeInsets.only(left: 32, right: 32, top: 56),
         child: Column(
@@ -149,7 +146,9 @@ class _BookingConfirmationViewState extends State<BookingConfirmationView>
                   AppButtonWidget(
                     buttonWidth: 0.5.w,
                     label: 'Track Booking',
-                    onPressed: () {},
+                    onPressed: () {
+                      context.push(AppRoutes.cleaningLifeCycle);
+                    },
                   ),
                 ],
               ),
