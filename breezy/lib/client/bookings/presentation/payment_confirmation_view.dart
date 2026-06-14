@@ -1,8 +1,10 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/common_widgets/common_components/app_bar_widget.dart';
+import '../../../core/utils/router/route_names.dart';
 
 class PaymentConfirmationView extends StatefulWidget {
   const PaymentConfirmationView({super.key});
@@ -137,7 +139,12 @@ class _PaymentConfirmationViewState extends State<PaymentConfirmationView> {
               ),
             ),
             Spacer(),
-            AppButtonWidget(label: 'Pay \$80', onPressed: () {}),
+            AppButtonWidget(
+              label: 'Pay \$80',
+              onPressed: () {
+                context.push(AppRoutes.cleanerRatingView);
+              },
+            ),
           ],
         ),
       ),

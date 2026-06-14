@@ -19,6 +19,7 @@ List<RouteBase> get $appRoutes => [
   $clientBookingConfirmationRoute,
   $cleaningLifeCycleRoute,
   $paymentConfirmationRoute,
+  $cleanerRatingRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -72,6 +73,12 @@ RouteBase get $clientMainTabsRoute => StatefulShellRouteData.$route(
                             GoRouteData.$route(
                               path: '/paymentConfirmationView',
                               factory: $PaymentConfirmationRoute._fromState,
+                              routes: [
+                                GoRouteData.$route(
+                                  path: '/cleanerRatingView',
+                                  factory: $CleanerRatingRoute._fromState,
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -225,6 +232,27 @@ mixin $PaymentConfirmationRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/paymentConfirmationView');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleanerRatingRoute on GoRouteData {
+  static CleanerRatingRoute _fromState(GoRouterState state) =>
+      CleanerRatingRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerRatingView');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -555,4 +583,9 @@ RouteBase get $cleaningLifeCycleRoute => GoRouteData.$route(
 RouteBase get $paymentConfirmationRoute => GoRouteData.$route(
   path: '/paymentConfirmationView',
   factory: $PaymentConfirmationRoute._fromState,
+);
+
+RouteBase get $cleanerRatingRoute => GoRouteData.$route(
+  path: '/cleanerRatingView',
+  factory: $CleanerRatingRoute._fromState,
 );

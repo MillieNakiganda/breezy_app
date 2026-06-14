@@ -18,6 +18,7 @@ class AppTextField extends StatelessWidget {
     this.borderRadius,
     this.inputFormatters,
     this.keyboardType,
+    this.maxLines,
   });
 
   final String? hintText;
@@ -32,10 +33,12 @@ class AppTextField extends StatelessWidget {
   final double? borderRadius;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
+  final int? maxLines;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLines ?? 1,
       controller: controller,
       style: context.textTheme.bodyMedium?.copyWith(
         color: context.theme.colorScheme.onSurface,

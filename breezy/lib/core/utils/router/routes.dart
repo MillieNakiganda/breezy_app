@@ -13,6 +13,7 @@ import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
 import '../../../cleaner/shared/presentation/components/cleaner_navigation_bar.dart';
 import '../../../client/bookings/presentation/booking_confirmation_view.dart';
 import '../../../client/bookings/presentation/cleaner_details_view.dart';
+import '../../../client/bookings/presentation/cleaner_rating_view.dart';
 import '../../../client/bookings/presentation/cleaning_lifecycle_view.dart';
 import '../../../client/bookings/presentation/client_booking_view.dart';
 import '../../../client/bookings/presentation/payment_confirmation_view.dart';
@@ -56,11 +57,15 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
                             TypedGoRoute<PaymentConfirmationRoute>(
                               path: AppRoutes.paymentConfirmation,
                               routes: [
-                            
+                                TypedGoRoute<CleanerRatingRoute>(
+                                  path: AppRoutes.cleanerRatingView,
+                                  routes: [
                         
                     
                   ]
                 ),
+                              ],
+                            ),
                           ],
                         ),
                       ],
@@ -276,5 +281,14 @@ class PaymentConfirmationRoute extends GoRouteData
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const PaymentConfirmationView();
+  }
+}
+
+@TypedGoRoute<CleanerRatingRoute>(path: AppRoutes.cleanerRatingView)
+class CleanerRatingRoute extends GoRouteData with $CleanerRatingRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleanerRatingView();
   }
 }
