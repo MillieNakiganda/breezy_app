@@ -12,6 +12,7 @@ class AppIconButtonWidget extends StatelessWidget {
     this.borderSideColor,
     this.labelColor,
     this.buttonWidth,
+    this.buttonHeight,
     this.icon,
   });
 
@@ -22,6 +23,7 @@ class AppIconButtonWidget extends StatelessWidget {
   final Color? borderSideColor;
   final Color? labelColor;
   final double? buttonWidth;
+  final double? buttonHeight;
   final Widget? icon;
 
   @override
@@ -40,7 +42,7 @@ class AppIconButtonWidget extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         elevation: 0,
         backgroundColor: backgroundColor ?? context.theme.colorScheme.primary,
-        minimumSize: Size(buttonWidth ?? double.infinity, 48),
+        minimumSize: Size(buttonWidth ?? double.infinity, buttonHeight ?? 48),
         side: BorderSide(
           color: borderSideColor ?? Colors.transparent,
           width: borderSideWidth ?? 0,

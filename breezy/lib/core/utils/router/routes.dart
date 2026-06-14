@@ -16,6 +16,7 @@ import '../../../client/bookings/presentation/cleaner_details_view.dart';
 import '../../../client/bookings/presentation/cleaner_rating_view.dart';
 import '../../../client/bookings/presentation/cleaning_lifecycle_view.dart';
 import '../../../client/bookings/presentation/client_booking_view.dart';
+import '../../../client/bookings/presentation/client_homes_view.dart';
 import '../../../client/bookings/presentation/payment_confirmation_view.dart';
 import '../../../client/shared/presentation/client_home_view.dart';
 import '../../../client/bookings/presentation/history.dart';
@@ -86,7 +87,20 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
       routes: [TypedGoRoute<HistoryRoute>(path: AppRoutes.history)],
     ),
     TypedStatefulShellBranch(
-      routes: [TypedGoRoute<ProfileRoute>(path: AppRoutes.clientProfile)],
+      routes: [
+        TypedGoRoute<ProfileRoute>(
+          path: AppRoutes.clientProfile,
+          routes: [
+            TypedGoRoute<ManageHomesRoute>(
+              path: AppRoutes.manageHomes,
+              routes: [
+                        
+                    
+                  ]
+                ),
+          ],
+        ),
+      ],
     ),
   ],
 )
@@ -290,5 +304,14 @@ class CleanerRatingRoute extends GoRouteData with $CleanerRatingRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const CleanerRatingView();
+  }
+}
+
+@TypedGoRoute<ManageHomesRoute>(path: AppRoutes.manageHomes)
+class ManageHomesRoute extends GoRouteData with $ManageHomesRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ClientHomesView();
   }
 }

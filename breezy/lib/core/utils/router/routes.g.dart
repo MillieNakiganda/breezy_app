@@ -20,6 +20,7 @@ List<RouteBase> get $appRoutes => [
   $cleaningLifeCycleRoute,
   $paymentConfirmationRoute,
   $cleanerRatingRoute,
+  $manageHomesRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -110,6 +111,12 @@ RouteBase get $clientMainTabsRoute => StatefulShellRouteData.$route(
         GoRouteData.$route(
           path: '/clientProfile',
           factory: $ProfileRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: '/manageHome',
+              factory: $ManageHomesRoute._fromState,
+            ),
+          ],
         ),
       ],
     ),
@@ -313,6 +320,26 @@ mixin $ProfileRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/clientProfile');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $ManageHomesRoute on GoRouteData {
+  static ManageHomesRoute _fromState(GoRouterState state) => ManageHomesRoute();
+
+  @override
+  String get location => GoRouteData.$location('/manageHome');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -588,4 +615,9 @@ RouteBase get $paymentConfirmationRoute => GoRouteData.$route(
 RouteBase get $cleanerRatingRoute => GoRouteData.$route(
   path: '/cleanerRatingView',
   factory: $CleanerRatingRoute._fromState,
+);
+
+RouteBase get $manageHomesRoute => GoRouteData.$route(
+  path: '/manageHome',
+  factory: $ManageHomesRoute._fromState,
 );

@@ -1,4 +1,6 @@
+import 'package:breezy/core/utils/router/route_names.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 
 import '../utils/router/routes.dart';
@@ -38,7 +40,7 @@ final clientSettings = [
     group: 'Account',
     title: 'Manage Homes',
     leadingIcon: PhosphorIcons.house,
-    onTap: null,
+    onTap: (context) => context.push(AppRoutes.manageHomes),
     trailingIcon: PhosphorIcons.caretRight,
   ),
   Setting(

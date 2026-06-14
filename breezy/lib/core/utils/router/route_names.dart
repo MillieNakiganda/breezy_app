@@ -20,4 +20,6 @@ class AppRoutes {
   static const String cleaningLifeCycle = '/cleaningLifeCycle';
   static const String paymentConfirmation = '/paymentConfirmationView';
   static const String cleanerRatingView = '/cleanerRatingView';
+  static const String cleaner = '/cleanerRatingView';
+  static const String manageHomes = '/manageHome';
 }
