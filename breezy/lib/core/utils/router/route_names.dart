@@ -24,4 +24,6 @@ class AppRoutes {
   static const String manageHomes = '/manageHome';
   static const String cleanerNotifications = '/cleanerNotifications';
   static const String cleanerAssignmentView = '/cleanerAssignmentView';
+  static const String cleanerActiveJob = '/cleanerActiveJob';
+  static const String cleanerBookingHistory = '/cleanerBookingHistory';
 }

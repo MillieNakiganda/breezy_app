@@ -448,11 +448,15 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(
-                      'See all',
-                      style: context.textTheme.bodySmall?.copyWith(
-                        color: context.appColors.successColor,
-                        fontWeight: FontWeight.bold,
+                    GestureDetector(
+                      onTap: () =>
+                          context.push(AppRoutes.cleanerBookingHistory),
+                      child: Text(
+                        'See all',
+                        style: context.textTheme.bodySmall?.copyWith(
+                          color: context.appColors.successColor,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ],

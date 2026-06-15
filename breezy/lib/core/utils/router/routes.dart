@@ -9,6 +9,8 @@ import 'package:go_router/go_router.dart';
 import '../../../cleaner/accounts/presentation/cleaner_profile_view.dart';
 import '../../../cleaner/accounts/presentation/cleaner_registration_view.dart';
 import '../../../cleaner/accounts/presentation/profile_details_view.dart';
+import '../../../cleaner/bookings/presentation/active_assignment_view.dart';
+import '../../../cleaner/bookings/presentation/cleaner_booking_view.dart';
 import '../../../cleaner/bookings/presentation/cleaner_schedule_view.dart';
 import '../../../cleaner/bookings/presentation/earnings_view.dart';
 import '../../../cleaner/shared/presentation/cleaner_home_view.dart';
@@ -187,6 +189,14 @@ class UserCategoryRoute extends GoRouteData with $UserCategoryRoute {
                 ),
               ],
             ),
+            TypedGoRoute<CleanerBookingHistoryRoute>(
+              path: AppRoutes.cleanerBookingHistory,
+              routes: [
+                TypedGoRoute<CleanerActiveJobRoute>(
+                  path: AppRoutes.cleanerActiveJob,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -348,5 +358,24 @@ class CleanerAssignmentRoute extends GoRouteData with $CleanerAssignmentRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const CleanerAssignmentView();
+  }
+}
+
+@TypedGoRoute<CleanerActiveJobRoute>(path: AppRoutes.cleanerActiveJob)
+class CleanerActiveJobRoute extends GoRouteData with $CleanerActiveJobRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const ActiveAssignmentView();
+  }
+}
+
+@TypedGoRoute<CleanerBookingHistoryRoute>(path: AppRoutes.cleanerBookingHistory)
+class CleanerBookingHistoryRoute extends GoRouteData
+    with $CleanerBookingHistoryRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleanerBookingsHistoryView();
   }
 }

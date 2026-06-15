@@ -23,6 +23,8 @@ List<RouteBase> get $appRoutes => [
   $manageHomesRoute,
   $cleanerNotificationsRoute,
   $cleanerAssignmentRoute,
+  $cleanerActiveJobRoute,
+  $cleanerBookingHistoryRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -451,6 +453,16 @@ RouteBase get $cleanerMainTabsRoute => StatefulShellRouteData.$route(
                 ),
               ],
             ),
+            GoRouteData.$route(
+              path: '/cleanerBookingHistory',
+              factory: $CleanerBookingHistoryRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/cleanerActiveJob',
+                  factory: $CleanerActiveJobRoute._fromState,
+                ),
+              ],
+            ),
           ],
         ),
       ],
@@ -540,6 +552,48 @@ mixin $CleanerAssignmentRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/cleanerAssignmentView');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleanerBookingHistoryRoute on GoRouteData {
+  static CleanerBookingHistoryRoute _fromState(GoRouterState state) =>
+      CleanerBookingHistoryRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerBookingHistory');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleanerActiveJobRoute on GoRouteData {
+  static CleanerActiveJobRoute _fromState(GoRouterState state) =>
+      CleanerActiveJobRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerActiveJob');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -686,4 +740,14 @@ RouteBase get $cleanerNotificationsRoute => GoRouteData.$route(
 RouteBase get $cleanerAssignmentRoute => GoRouteData.$route(
   path: '/cleanerAssignmentView',
   factory: $CleanerAssignmentRoute._fromState,
+);
+
+RouteBase get $cleanerActiveJobRoute => GoRouteData.$route(
+  path: '/cleanerActiveJob',
+  factory: $CleanerActiveJobRoute._fromState,
+);
+
+RouteBase get $cleanerBookingHistoryRoute => GoRouteData.$route(
+  path: '/cleanerBookingHistory',
+  factory: $CleanerBookingHistoryRoute._fromState,
 );
