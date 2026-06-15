@@ -1,3 +1,5 @@
+import 'package:breezy/cleaner/bookings/presentation/cleaner_assignment_view.dart';
+import 'package:breezy/cleaner/shared/presentation/cleaner_notifications_view.dart';
 import 'package:breezy/client/bookings/presentation/client_bookings_history_view.dart';
 import 'package:breezy/client/accounts/client_profile_view.dart';
 import 'package:breezy/core/utils/router/app_router.dart';
@@ -173,7 +175,21 @@ class UserCategoryRoute extends GoRouteData with $UserCategoryRoute {
 @TypedStatefulShellRoute<CleanerMainTabsRoute>(
   branches: [
     TypedStatefulShellBranch(
-      routes: [TypedGoRoute<CleanerHomeRoute>(path: AppRoutes.cleanerHome)],
+      routes: [
+        TypedGoRoute<CleanerHomeRoute>(
+          path: AppRoutes.cleanerHome,
+          routes: [
+            TypedGoRoute<CleanerNotificationsRoute>(
+              path: AppRoutes.cleanerNotifications,
+              routes: [
+                TypedGoRoute<CleanerAssignmentRoute>(
+                  path: AppRoutes.cleanerAssignmentView,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     ),
 
     TypedStatefulShellBranch(
@@ -313,5 +329,24 @@ class ManageHomesRoute extends GoRouteData with $ManageHomesRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const ClientHomesView();
+  }
+}
+
+@TypedGoRoute<CleanerNotificationsRoute>(path: AppRoutes.cleanerNotifications)
+class CleanerNotificationsRoute extends GoRouteData
+    with $CleanerNotificationsRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleanerNotificationView();
+  }
+}
+
+@TypedGoRoute<CleanerAssignmentRoute>(path: AppRoutes.cleanerAssignmentView)
+class CleanerAssignmentRoute extends GoRouteData with $CleanerAssignmentRoute {
+  static final GlobalKey<NavigatorState> $navigatorKey = rootNavigatorKey;
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const CleanerAssignmentView();
   }
 }

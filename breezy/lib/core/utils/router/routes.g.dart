@@ -21,6 +21,8 @@ List<RouteBase> get $appRoutes => [
   $paymentConfirmationRoute,
   $cleanerRatingRoute,
   $manageHomesRoute,
+  $cleanerNotificationsRoute,
+  $cleanerAssignmentRoute,
 ];
 
 RouteBase get $onboardingRoute =>
@@ -438,6 +440,18 @@ RouteBase get $cleanerMainTabsRoute => StatefulShellRouteData.$route(
         GoRouteData.$route(
           path: '/cleanerHome',
           factory: $CleanerHomeRoute._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: '/cleanerNotifications',
+              factory: $CleanerNotificationsRoute._fromState,
+              routes: [
+                GoRouteData.$route(
+                  path: '/cleanerAssignmentView',
+                  factory: $CleanerAssignmentRoute._fromState,
+                ),
+              ],
+            ),
+          ],
         ),
       ],
     ),
@@ -484,6 +498,48 @@ mixin $CleanerHomeRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/cleanerHome');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleanerNotificationsRoute on GoRouteData {
+  static CleanerNotificationsRoute _fromState(GoRouterState state) =>
+      CleanerNotificationsRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerNotifications');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+mixin $CleanerAssignmentRoute on GoRouteData {
+  static CleanerAssignmentRoute _fromState(GoRouterState state) =>
+      CleanerAssignmentRoute();
+
+  @override
+  String get location => GoRouteData.$location('/cleanerAssignmentView');
 
   @override
   void go(BuildContext context) => context.go(location);
@@ -620,4 +676,14 @@ RouteBase get $cleanerRatingRoute => GoRouteData.$route(
 RouteBase get $manageHomesRoute => GoRouteData.$route(
   path: '/manageHome',
   factory: $ManageHomesRoute._fromState,
+);
+
+RouteBase get $cleanerNotificationsRoute => GoRouteData.$route(
+  path: '/cleanerNotifications',
+  factory: $CleanerNotificationsRoute._fromState,
+);
+
+RouteBase get $cleanerAssignmentRoute => GoRouteData.$route(
+  path: '/cleanerAssignmentView',
+  factory: $CleanerAssignmentRoute._fromState,
 );

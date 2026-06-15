@@ -22,4 +22,6 @@ class AppRoutes {
   static const String cleanerRatingView = '/cleanerRatingView';
   static const String cleaner = '/cleanerRatingView';
   static const String manageHomes = '/manageHome';
+  static const String cleanerNotifications = '/cleanerNotifications';
+  static const String cleanerAssignmentView = '/cleanerAssignmentView';
 }

@@ -1,10 +1,12 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../core/common_widgets/common_components/app_cached_image_widget.dart';
+import '../../../core/utils/router/route_names.dart';
 
 class CleanerHomeView extends StatefulWidget {
   const CleanerHomeView({super.key});
@@ -50,18 +52,21 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                       ],
                     ),
                     Spacer(),
-                    Container(
-                      margin: const EdgeInsets.only(left: 16),
+                    GestureDetector(
+                      onTap: () => context.push(AppRoutes.cleanerNotifications),
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 16),
 
-                      decoration: BoxDecoration(
-                        color: context.theme.colorScheme.outline,
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(
-                          PhosphorIcons.bell,
-                          color: context.theme.colorScheme.onPrimary,
+                        decoration: BoxDecoration(
+                          color: context.theme.colorScheme.outline,
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            PhosphorIcons.bell,
+                            color: context.theme.colorScheme.onPrimary,
+                          ),
                         ),
                       ),
                     ),
