@@ -3,7 +3,6 @@ import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../cleaner/accounts/presentation/components/document_widget.dart';
 import '../../../core/common_widgets/common_components/app_bar_widget.dart';
@@ -23,137 +22,162 @@ class _BookingConfirmationViewState extends State<BookingConfirmationView> {
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
       appBar: AppBarWidget(title: 'Booking Confirmation'),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 32, right: 32, top: 56),
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: context.appColors.warningContainer,
-                shape: BoxShape.circle,
-              ),
-              child: Padding(
-                padding: EdgeInsetsGeometry.all(14),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: context.appColors.warning,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      PhosphorIcons.check,
-                      size: 32,
-                      color: context.theme.colorScheme.onPrimary,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 32, right: 32),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: IntrinsicHeight(
+                    child: Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: context.appColors.warningContainer,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsGeometry.all(14),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: context.appColors.warning,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Icon(
+                                  PhosphorIcons.check,
+                                  size: 32,
+                                  color: context.theme.colorScheme.onPrimary,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          'Request sent!',
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          textAlign: TextAlign.center,
+                          "We've notified 3 nearby cleaners. You'll be alerted as soon as asomeone accepts",
+                          style: context.textTheme.bodyMedium?.copyWith(
+                            color: context.theme.colorScheme.outline,
+                          ),
+                        ),
+                        SizedBox(height: 16),
+                        Container(
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color:
+                                context.theme.colorScheme.surfaceContainerLow,
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(
+                              color: context
+                                  .theme
+                                  .colorScheme
+                                  .surfaceContainerHigh,
+                            ),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              DocumentWidget(
+                                addTrailingWidget: false,
+                                title: 'DATE',
+                                description: 'Tuesday, Oct 15',
+                                icon: PhosphorIcons.calendarBlank,
+                              ),
+                              DocumentWidget(
+                                addTrailingWidget: false,
+                                title: 'TIME',
+                                description: '10:00 AM . 2 hours',
+                                icon: PhosphorIcons.watch,
+                              ),
+                              DocumentWidget(
+                                addTrailingWidget: false,
+                                title: 'ADDRESS',
+                                description: '112 Henry St, Apt 4B',
+                                icon: PhosphorIcons.mapPin,
+                              ),
+                              DocumentWidget(
+                                addTrailingWidget: false,
+                                title: 'SERVICE',
+                                description: 'Deep Clean',
+                                icon: PhosphorIcons.broom,
+                              ),
+
+                              SizedBox(height: 8),
+                            ],
+                          ),
+                        ),
+                        SizedBox(height: 16),
+
+                        Container(
+                          decoration: BoxDecoration(
+                            color: context.appColors.warning.withValues(
+                              alpha: 0.2,
+                            ),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Container(
+                                  width: 10,
+                                  height: 10,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: context.appColors.warning,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                Text('Awaiting cleaner response'),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                flex: 1,
+                                child: AppButtonWidget(
+                                  label: 'Cancel Booking',
+                                  labelColor: colorTheme.onSecondaryContainer,
+                                  onPressed: null,
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Flexible(
+                                flex: 1,
+                                child: AppButtonWidget(
+                                  label: 'Track Booking',
+                                  onPressed: () {
+                                    context.push(AppRoutes.cleaningLifeCycle);
+                                  },
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Request sent!',
-              style: context.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              textAlign: TextAlign.center,
-              "We've notified 3 nearby cleaners. You'll be alerted as soon as asomeone accepts",
-              style: context.textTheme.bodyMedium?.copyWith(
-                color: context.theme.colorScheme.outline,
-              ),
-            ),
-            SizedBox(height: 16),
-            Container(
-              padding: EdgeInsets.all(8),
-              decoration: BoxDecoration(
-                color: context.theme.colorScheme.surfaceContainerLow,
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                border: Border.all(
-                  color: context.theme.colorScheme.surfaceContainerHigh,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  DocumentWidget(
-                    addTrailingWidget: false,
-                    title: 'DATE',
-                    description: 'Tuesday, Oct 15',
-                    icon: PhosphorIcons.calendarBlank,
-                  ),
-                  DocumentWidget(
-                    addTrailingWidget: false,
-                    title: 'TIME',
-                    description: '10:00 AM . 2 hours',
-                    icon: PhosphorIcons.watch,
-                  ),
-                  DocumentWidget(
-                    addTrailingWidget: false,
-                    title: 'ADDRESS',
-                    description: '112 Henry St, Apt 4B',
-                    icon: PhosphorIcons.mapPin,
-                  ),
-                  DocumentWidget(
-                    addTrailingWidget: false,
-                    title: 'SERVICE',
-                    description: 'Deep Clean',
-                    icon: PhosphorIcons.broom,
-                  ),
-
-                  SizedBox(height: 8),
-                ],
-              ),
-            ),
-            SizedBox(height: 16),
-
-            Container(
-              decoration: BoxDecoration(
-                color: context.appColors.warning.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 10,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: context.appColors.warning,
-                      ),
-                    ),
-                    SizedBox(width: 5),
-                    Text('Awaiting cleaner response'),
-                  ],
-                ),
-              ),
-            ),
-            Expanded(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  AppButtonWidget(
-                    buttonWidth: 0.5.w,
-                    label: 'Cancel Booking',
-                    labelColor: colorTheme.onSecondaryContainer,
-                    onPressed: null,
-                  ),
-                  AppButtonWidget(
-                    buttonWidth: 0.5.w,
-                    label: 'Track Booking',
-                    onPressed: () {
-                      context.push(AppRoutes.cleaningLifeCycle);
-                    },
-                  ),
-                ],
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
       ),
     );

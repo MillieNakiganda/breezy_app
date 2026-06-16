@@ -22,14 +22,21 @@ Future<T?> showFloatingBottomSheet<T>({
     isDismissible: isDismissible,
     enableDrag: enableDrag,
     builder: (context) {
+      final bottomInset = MediaQuery.viewInsetsOf(context).bottom;
+
       return Padding(
-        padding: margin,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: context.theme.colorScheme.surface,
-            borderRadius: BorderRadius.circular(borderRadius),
+        padding: EdgeInsets.only(bottom: bottomInset),
+        //duration: const Duration(milliseconds: 150),
+        // curve: Curves.easeOut,
+        child: Padding(
+          padding: margin,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: context.theme.colorScheme.surface,
+              borderRadius: BorderRadius.circular(borderRadius),
+            ),
+            child: SafeArea(top: false, child: child),
           ),
-          child: SafeArea(top: false, child: child),
         ),
       );
     },

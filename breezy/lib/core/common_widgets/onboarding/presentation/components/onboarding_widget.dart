@@ -1,4 +1,3 @@
-import 'package:breezy/core/utils/app_extensions/image_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';

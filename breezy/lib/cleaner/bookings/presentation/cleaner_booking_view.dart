@@ -25,86 +25,88 @@ class _CleanerBookingsHistoryViewState extends State<CleanerBookingsHistoryView>
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
       appBar: AppBarWidget(title: 'Bookings'),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 32, right: 32, top: 16),
-        child: Column(
-          children: [
-            TabBar(
-              isScrollable: true,
-              tabAlignment: TabAlignment.start,
-              onTap: (value) => setState(() {
-                selectedIndex = value;
-              }),
-              indicatorColor: Colors.transparent,
-              dividerColor: Colors.transparent,
-              controller: tabBarController,
-              splashFactory: NoSplash.splashFactory,
-              tabs: [
-                ...List.generate(tabItems.length, (index) {
-                  final currentTab = tabItems[index];
-                  return Tab(
-                    height: 40,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 32, right: 32, top: 16),
+          child: Column(
+            children: [
+              TabBar(
+                isScrollable: true,
+                tabAlignment: TabAlignment.start,
+                onTap: (value) => setState(() {
+                  selectedIndex = value;
+                }),
+                indicatorColor: Colors.transparent,
+                dividerColor: Colors.transparent,
+                controller: tabBarController,
+                splashFactory: NoSplash.splashFactory,
+                tabs: [
+                  ...List.generate(tabItems.length, (index) {
+                    final currentTab = tabItems[index];
+                    return Tab(
+                      height: 40,
 
-                    child: Container(
-                      decoration: BoxDecoration(
-                        // border: Border.all(color: Colors.black),
-                        borderRadius: BorderRadius.circular(16),
-                        color: index == selectedIndex
-                            ? colorTheme.secondaryContainer
-                            : colorTheme.surfaceContainerHigh,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 8.0,
-                          horizontal: 12,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          // border: Border.all(color: Colors.black),
+                          borderRadius: BorderRadius.circular(16),
+                          color: index == selectedIndex
+                              ? colorTheme.secondaryContainer
+                              : colorTheme.surfaceContainerHigh,
                         ),
-                        child: Text(
-                          currentTab,
-                          style: context.textTheme.bodySmall?.copyWith(
-                            color: index == selectedIndex
-                                ? colorTheme.onSecondaryContainer
-                                : colorTheme.onSurface,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 12,
+                          ),
+                          child: Text(
+                            currentTab,
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: index == selectedIndex
+                                  ? colorTheme.onSecondaryContainer
+                                  : colorTheme.onSurface,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                }),
-              ],
-            ),
-
-            Expanded(
-              child: TabBarView(
-                controller: tabBarController,
-                children: [
-                  ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () => context.push(AppRoutes.cleanerActiveJob),
-                        child: ClientBookingWidget(),
-                      );
-                    },
-                  ),
-                  ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return ClientBookingWidget();
-                    },
-                  ),
-                  ListView.builder(
-                    padding: EdgeInsets.zero,
-                    itemCount: 6,
-                    itemBuilder: (context, index) {
-                      return ClientBookingWidget();
-                    },
-                  ),
+                    );
+                  }),
                 ],
               ),
-            ),
-          ],
+
+              Expanded(
+                child: TabBarView(
+                  controller: tabBarController,
+                  children: [
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: 2,
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () => context.push(AppRoutes.cleanerActiveJob),
+                          child: ClientBookingWidget(),
+                        );
+                      },
+                    ),
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return ClientBookingWidget();
+                      },
+                    ),
+                    ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: 6,
+                      itemBuilder: (context, index) {
+                        return ClientBookingWidget();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

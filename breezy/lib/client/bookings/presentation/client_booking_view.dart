@@ -129,303 +129,308 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                 ),
               ),
             ),
-      body: Padding(
-        padding: const EdgeInsets.only(right: 32, left: 32, top: 16),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: .start,
-                  crossAxisAlignment: .start,
-                  children: [
-                    TableCalendar(
-                      focusedDay: DateTime.now(),
-                      firstDay: DateTime.now(),
-                      lastDay: DateTime.utc(2030, 3, 14),
-                      selectedDayPredicate: (day) {
-                        return isSameDay(selectedDay, day);
-                      },
-                      calendarBuilders: CalendarBuilders(
-                        markerBuilder: (context, date, events) {
-                          if (timeslots.containsKey(normalizeDay(date))) {
-                            return Positioned(
-                              bottom: 1,
-                              child: Container(
-                                width: 6,
-                                height: 6,
-                                decoration: BoxDecoration(
-                                  color: Colors.blue,
-                                  shape: BoxShape.circle,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.only(right: 32, left: 32),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return SingleChildScrollView(
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: .start,
+                    crossAxisAlignment: .start,
+                    children: [
+                      TableCalendar(
+                        focusedDay: DateTime.now(),
+                        firstDay: DateTime.now(),
+                        lastDay: DateTime.utc(2030, 3, 14),
+                        selectedDayPredicate: (day) {
+                          return isSameDay(selectedDay, day);
+                        },
+                        calendarBuilders: CalendarBuilders(
+                          markerBuilder: (context, date, events) {
+                            if (timeslots.containsKey(normalizeDay(date))) {
+                              return Positioned(
+                                bottom: 1,
+                                child: Container(
+                                  width: 6,
+                                  height: 6,
+                                  decoration: BoxDecoration(
+                                    color: Colors.blue,
+                                    shape: BoxShape.circle,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
-                          return null;
+                              );
+                            }
+                            return null;
+                          },
+                        ),
+                        onDaySelected: (selectedDay, focusedDay) {
+                          setState(() {
+                            this.selectedDay = selectedDay;
+                            this.focusedDay = focusedDay;
+                            selectedAvailableTime = null;
+                          });
+                        },
+                        calendarFormat: _calendarFormat,
+                        onFormatChanged: (format) {
+                          setState(() {
+                            _calendarFormat = format;
+                          });
+                        },
+                        onPageChanged: (focusedDay) {
+                          this.focusedDay = focusedDay;
                         },
                       ),
-                      onDaySelected: (selectedDay, focusedDay) {
-                        setState(() {
-                          this.selectedDay = selectedDay;
-                          this.focusedDay = focusedDay;
-                          selectedAvailableTime = null;
-                        });
-                      },
-                      calendarFormat: _calendarFormat,
-                      onFormatChanged: (format) {
-                        setState(() {
-                          _calendarFormat = format;
-                        });
-                      },
-                      onPageChanged: (focusedDay) {
-                        this.focusedDay = focusedDay;
-                      },
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      'Time slots for ${DateFormat('EEEE, MMMM dd, yyyy').format(this.selectedDay ?? DateTime.now())}',
-                      style: textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                      SizedBox(height: 16),
+                      Text(
+                        'Time slots for ${DateFormat('EEEE, MMMM dd, yyyy').format(selectedDay ?? DateTime.now())}',
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 16),
-                    selectedDay != null &&
-                            getAvailableStartTimes(selectedDay!).isNotEmpty
-                        ? Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: [
-                              ...getAvailableStartTimes(selectedDay!).map(
-                                (slot) => FilterChip(
-                                  label: Text(slot.time.format(context)),
-                                  selected:
-                                      selectedAvailableTime != null &&
-                                      isSameTimeOfDay(
-                                        selectedAvailableTime!.time,
-                                        slot.time,
-                                      ),
-                                  onSelected: (_) {
-                                    setState(() {
-                                      selectedAvailableTime = slot;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          )
-                        : Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                      SizedBox(height: 16),
+                      selectedDay != null &&
+                              getAvailableStartTimes(selectedDay!).isNotEmpty
+                          ? Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
                               children: [
-                                Icon(
-                                  Icons.access_time,
-                                  size: 64,
-                                  color: colorTheme.outline,
-                                ),
-                                SizedBox(height: 16),
-                                Text(
-                                  'No time slots for this day',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: colorTheme.outline,
-                                  ),
-                                ),
-                                SizedBox(height: 8),
-                                Text(
-                                  'Cleaner is not available on this day',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: colorTheme.outline,
+                                ...getAvailableStartTimes(selectedDay!).map(
+                                  (slot) => FilterChip(
+                                    label: Text(slot.time.format(context)),
+                                    selected:
+                                        selectedAvailableTime != null &&
+                                        isSameTimeOfDay(
+                                          selectedAvailableTime!.time,
+                                          slot.time,
+                                        ),
+                                    onSelected: (_) {
+                                      setState(() {
+                                        selectedAvailableTime = slot;
+                                      });
+                                    },
                                   ),
                                 ),
                               ],
-                            ),
-                          ),
-
-                    SizedBox(height: 16),
-                    selectedDay != null &&
-                            getAvailableStartTimes(selectedDay!).isNotEmpty
-                        ? Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Choose a home',
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'See all',
-                                style: context.textTheme.bodyMedium?.copyWith(
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ],
-                          )
-                        : SizedBox.shrink(),
-                    SizedBox(height: 16),
-                    selectedDay != null &&
-                            getAvailableStartTimes(selectedDay!).isNotEmpty
-                        ? SizedBox(
-                            height: 0.25 * constraints.maxHeight,
-                            child: ListView.builder(
-                              itemCount: 2,
-                              padding: EdgeInsets.zero,
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: () {},
-                                  child: Container(
-                                    margin: EdgeInsets.only(bottom: 8),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      border: Border.all(
-                                        color: index == selectedHouse
-                                            ? context.theme.colorScheme.primary
-                                            : context
-                                                  .theme
-                                                  .colorScheme
-                                                  .outlineVariant,
-                                      ),
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.access_time,
+                                    size: 64,
+                                    color: colorTheme.outline,
+                                  ),
+                                  SizedBox(height: 16),
+                                  Text(
+                                    'No time slots for this day',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      color: colorTheme.outline,
                                     ),
-                                    child: ListTile(
-                                      leading: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                            8,
-                                          ),
-                                          color: context
-                                              .theme
-                                              .colorScheme
-                                              .secondaryContainer,
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Icon(PhosphorIcons.houseFill),
-                                        ),
-                                      ),
-                                      title: Text(
-                                        'Brroklyn Apartment',
-                                        style: context.textTheme.bodyMedium,
-                                      ),
-                                      subtitle: Text(
-                                        '112 Hentry Street, Apt 48',
-                                        style: context.textTheme.bodySmall,
-                                      ),
-                                      trailing: index == selectedHouse
-                                          ? Padding(
-                                              padding: const EdgeInsets.all(
-                                                8.0,
-                                              ),
-                                              child: Icon(
-                                                Icons.check_circle,
-                                                color: context
+                                  ),
+                                  SizedBox(height: 8),
+                                  Text(
+                                    'Cleaner is not available on this day',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: colorTheme.outline,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+
+                      SizedBox(height: 16),
+                      selectedDay != null &&
+                              getAvailableStartTimes(selectedDay!).isNotEmpty
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  'Choose a home',
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                Text(
+                                  'See all',
+                                  style: context.textTheme.bodyMedium?.copyWith(
+                                    decoration: TextDecoration.underline,
+                                  ),
+                                ),
+                              ],
+                            )
+                          : SizedBox.shrink(),
+                      SizedBox(height: 16),
+                      selectedDay != null &&
+                              getAvailableStartTimes(selectedDay!).isNotEmpty
+                          ? SizedBox(
+                              height: 0.25 * constraints.maxHeight,
+                              child: ListView.builder(
+                                itemCount: 2,
+                                padding: EdgeInsets.zero,
+                                itemBuilder: (context, index) {
+                                  return GestureDetector(
+                                    onTap: () {},
+                                    child: Container(
+                                      margin: EdgeInsets.only(bottom: 8),
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(12),
+                                        border: Border.all(
+                                          color: index == selectedHouse
+                                              ? context
                                                     .theme
                                                     .colorScheme
-                                                    .primary,
-                                              ),
-                                            )
-                                          : SizedBox.shrink(),
+                                                    .primary
+                                              : context
+                                                    .theme
+                                                    .colorScheme
+                                                    .outlineVariant,
+                                        ),
+                                      ),
+                                      child: ListTile(
+                                        leading: Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            color: context
+                                                .theme
+                                                .colorScheme
+                                                .secondaryContainer,
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              PhosphorIcons.houseFill,
+                                            ),
+                                          ),
+                                        ),
+                                        title: Text(
+                                          'Brroklyn Apartment',
+                                          style: context.textTheme.bodyMedium,
+                                        ),
+                                        subtitle: Text(
+                                          '112 Hentry Street, Apt 48',
+                                          style: context.textTheme.bodySmall,
+                                        ),
+                                        trailing: index == selectedHouse
+                                            ? Padding(
+                                                padding: const EdgeInsets.all(
+                                                  8.0,
+                                                ),
+                                                child: Icon(
+                                                  Icons.check_circle,
+                                                  color: context
+                                                      .theme
+                                                      .colorScheme
+                                                      .primary,
+                                                ),
+                                              )
+                                            : SizedBox.shrink(),
+                                      ),
                                     ),
-                                  ),
-                                );
-                              },
+                                  );
+                                },
+                              ),
+                            )
+                          : SizedBox.shrink(),
+                      Row(
+                        children: [
+                          Icon(PhosphorIcons.plus, size: 16),
+                          SizedBox(width: 8),
+                          Text(
+                            'Add another home',
+                            style: context.textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.bold,
                             ),
-                          )
-                        : SizedBox.shrink(),
-                    Row(
-                      children: [
-                        Icon(PhosphorIcons.plus, size: 16),
-                        SizedBox(width: 8),
-                        Text(
-                          'Add another home',
-                          style: context.textTheme.bodySmall?.copyWith(
-                            fontWeight: FontWeight.bold,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16),
-                    Text(
-                      'Who should we ask',
-                      style: context.textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
+                        ],
                       ),
-                    ),
-                    SizedBox(height: 16),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color:
-                                context.theme.colorScheme.surfaceContainerLow,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: context.theme.colorScheme.outlineVariant,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              spacing: 4,
-                              children: [
-                                Icon(PhosphorIcons.user),
-
-                                Text(
-                                  'Single Cleaner',
-                                  style: context.textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  'Send to Sophia only',
-                                  style: context.textTheme.bodySmall,
-                                ),
-                              ],
-                            ),
-                          ),
+                      SizedBox(height: 16),
+                      Text(
+                        'Who should we ask',
+                        style: context.textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
-                        SizedBox(width: 10),
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: context.theme.colorScheme.outline,
+                      ),
+                      SizedBox(height: 16),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  context.theme.colorScheme.surfaceContainerLow,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: context.theme.colorScheme.outlineVariant,
+                              ),
                             ),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              spacing: 4,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Icon(PhosphorIcons.usersFour),
-                                Text(
-                                  'First to accept',
-                                  style: context.textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.bold,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                spacing: 4,
+                                children: [
+                                  Icon(PhosphorIcons.user),
+
+                                  Text(
+                                    'Single Cleaner',
+                                    style: context.textTheme.bodyMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                                Text(
-                                  'Send to cleaners nearby',
-                                  style: context.textTheme.bodySmall,
-                                ),
-                              ],
+                                  Text(
+                                    'Send to Sophia only',
+                                    style: context.textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 20),
-                  ],
+                          SizedBox(width: 10),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: context.theme.colorScheme.outline,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                spacing: 4,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Icon(PhosphorIcons.usersFour),
+                                  Text(
+                                    'First to accept',
+                                    style: context.textTheme.bodyMedium
+                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Send to cleaners nearby',
+                                    style: context.textTheme.bodySmall,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
+              );
+            },
+          ),
         ),
       ),
     );

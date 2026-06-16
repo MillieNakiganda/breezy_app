@@ -23,8 +23,6 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
-  // final EmailValidationStrategy emailValidationStrategy =
-  //     EmailValidationStrategy(debug: true, allowTopLevelDomains: true);
 
   @override
   Widget build(BuildContext context) {

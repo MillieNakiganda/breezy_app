@@ -1,15 +1,10 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../cleaner/accounts/presentation/components/document_widget.dart';
 import '../../../core/common_widgets/common_components/app_bar_widget.dart';
 import '../../../core/common_widgets/common_components/app_cached_image_widget.dart';
-import '../../../core/utils/router/route_names.dart';
 
 class ActiveAssignmentView extends StatefulWidget {
   const ActiveAssignmentView({super.key});

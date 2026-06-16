@@ -23,6 +23,7 @@ class _CleanerNavigationBarState extends State<CleanerNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       body: widget.navigationShell,
       bottomNavigationBar: SafeArea(
         child: Container(
