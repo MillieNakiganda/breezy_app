@@ -10,42 +10,57 @@ class AppCachedImageWidget extends StatelessWidget {
     required this.height,
     required this.width,
     required this.imageUrl,
+    this.isCircular = false,
   });
   final double height;
   final double width;
   final String imageUrl;
+  final bool isCircular;
 
   @override
   Widget build(BuildContext context) {
+    final cacheWidth = width.cacheSize(context);
+    final cacheHeight = height.cacheSize(context);
+
     return CachedNetworkImage(
       width: width,
       height: height,
-      memCacheWidth: width.cacheSize(context),
-      memCacheHeight: height.cacheSize(context),
-      maxWidthDiskCache: width.cacheSize(context),
-      maxHeightDiskCache: height.cacheSize(context),
+      memCacheWidth: cacheWidth,
+      memCacheHeight: cacheHeight,
+      maxWidthDiskCache: cacheWidth,
+      maxHeightDiskCache: cacheHeight,
       fit: BoxFit.cover,
-      imageUrl:
-          'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
-
-      progressIndicatorBuilder: (context, url, progress) =>
-          Center(child: CircularProgressIndicator(value: progress.progress)),
-      placeholder: (context, url) => Container(
-        width: 150,
-        height: 150,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              context.theme.colorScheme.primary,
-              Colors.black,
-              context.theme.colorScheme.primary,
-            ],
-          ),
-        ),
+      imageUrl: imageUrl,
+      // progressIndicatorBuilder: (context, url, progress) => Center(
+      //   child: CircularProgressIndicator(value: progress.progress),
+      // ),
+      placeholder: (context, url) => ColoredBox(
+        color: context.theme.colorScheme.surfaceContainerLow,
+        child: SizedBox(width: width, height: height),
       ),
-      errorBuilder: (context, url, error) => const Icon(Icons.error),
+      errorBuilder: (context, url, error) => SizedBox(
+        width: width,
+        height: height,
+        child: const Icon(Icons.error),
+      ),
+      imageBuilder: (context, imageProvider) {
+        final resized = ResizeImage(
+          imageProvider,
+          width: cacheWidth,
+          height: cacheHeight,
+          allowUpscaling: false,
+        );
+
+        return Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
+            borderRadius: isCircular ? null : BorderRadius.circular(12),
+            image: DecorationImage(image: resized, fit: BoxFit.cover),
+          ),
+        );
+      },
     );
   }
 }
