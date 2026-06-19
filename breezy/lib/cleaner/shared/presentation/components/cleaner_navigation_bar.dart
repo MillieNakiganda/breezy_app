@@ -22,35 +22,36 @@ class _CleanerNavigationBarState extends State<CleanerNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.theme.colorScheme;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: widget.navigationShell,
       bottomNavigationBar: SafeArea(
-        child: Container(
-          height: 56,
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          decoration: BoxDecoration(
-            color: context.theme.colorScheme.onPrimary,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: context.theme.colorScheme.onSurface.withValues(
-                  alpha: 0.1,
+        child: RepaintBoundary(
+          child: Container(
+            height: 56,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            decoration: BoxDecoration(
+              color: context.theme.colorScheme.onPrimary,
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(
+                  color: colorTheme.onSurface.withValues(alpha: 0.1),
+                  blurRadius: 20,
+                  offset: const Offset(0, 20),
                 ),
-                blurRadius: 20,
-                offset: const Offset(0, 20),
-              ),
-            ],
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              cleanerNavItem(PhosphorIcons.house, 'Home', 0),
-              cleanerNavItem(PhosphorIcons.calendarBlank, 'Schedule', 1),
-              cleanerNavItem(PhosphorIcons.trendUp, 'Earnings', 2),
-              cleanerNavItem(PhosphorIcons.user, 'Profile', 3),
-            ],
+              ],
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                cleanerNavItem(PhosphorIcons.house, 'Home', 0),
+                cleanerNavItem(PhosphorIcons.calendarBlank, 'Schedule', 1),
+                cleanerNavItem(PhosphorIcons.trendUp, 'Earnings', 2),
+                cleanerNavItem(PhosphorIcons.user, 'Profile', 3),
+              ],
+            ),
           ),
         ),
       ),
@@ -58,6 +59,8 @@ class _CleanerNavigationBarState extends State<CleanerNavigationBar> {
   }
 
   Widget cleanerNavItem(IconData icon, String label, int index) {
+    final textTheme = context.textTheme;
+    final colorTheme = context.theme.colorScheme;
     return GestureDetector(
       onTap: () => onTabTapped(index),
       child: Column(
@@ -66,18 +69,18 @@ class _CleanerNavigationBarState extends State<CleanerNavigationBar> {
           Icon(
             icon,
             color: currentIndex == index
-                ? context.theme.colorScheme.primary
-                : context.theme.colorScheme.outline,
+                ? colorTheme.primary
+                : colorTheme.outline,
           ),
           Text(
             label,
-            style: context.textTheme.bodySmall?.copyWith(
+            style: textTheme.bodySmall?.copyWith(
               fontWeight: currentIndex == index
                   ? FontWeight.bold
                   : FontWeight.normal,
               color: currentIndex == index
-                  ? context.theme.colorScheme.primary
-                  : context.theme.colorScheme.outline,
+                  ? colorTheme.primary
+                  : colorTheme.outline,
             ),
           ),
         ],

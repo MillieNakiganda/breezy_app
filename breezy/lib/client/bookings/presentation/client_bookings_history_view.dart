@@ -19,10 +19,20 @@ class _BookingsViewState extends State<BookingsView>
   @override
   Widget build(BuildContext context) {
     final colorTheme = context.theme.colorScheme;
+    final textTheme = context.textTheme;
     return Padding(
-      padding: const EdgeInsets.only(left: 32, right: 32, top: 56),
+      padding: const EdgeInsets.only(left: 32, right: 32, top: 64),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(height: 16),
+          Text(
+            'Bookings History',
+            style: textTheme.headlineSmall?.copyWith(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 24),
           TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
@@ -54,7 +64,7 @@ class _BookingsViewState extends State<BookingsView>
                       ),
                       child: Text(
                         currentTab,
-                        style: context.textTheme.bodySmall?.copyWith(
+                        style: textTheme.bodySmall?.copyWith(
                           color: index == selectedIndex
                               ? colorTheme.onSecondaryContainer
                               : colorTheme.onSurface,

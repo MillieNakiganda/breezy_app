@@ -1,12 +1,14 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
+import 'package:breezy/core/utils/theme/app_sizes.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../core/common_widgets/common_components/app_cached_image_widget.dart';
+import '../../../core/common_widgets/common_components/app_text_field.dart';
 import '../../../core/utils/router/route_names.dart';
+import '../../../core/utils/theme/app_spacing.dart';
 
 class CleanerHomeView extends StatefulWidget {
   const CleanerHomeView({super.key});
@@ -20,25 +22,27 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final colorTheme = context.theme.colorScheme;
+    final textTheme = context.theme.textTheme;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 32, right: 32),
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            return SingleChildScrollView(
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      ClipOval(
-                        child: AppCachedImageWidget(
-                          width: 50,
-                          height: 50,
-                          imageUrl:
-                              'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
-                        ),
+                      const AppCachedImageWidget(
+                        width: 50,
+                        height: 50,
+                        isCircular: true,
+                        imageUrl:
+                            'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
                       ),
+
                       SizedBox(width: 16),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,13 +50,13 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                           Text('Hi,'),
                           Text(
                             'Mildred',
-                            style: context.theme.textTheme.bodyMedium?.copyWith(
+                            style: textTheme.bodyMedium?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ],
                       ),
-                      Spacer(),
+                      const Spacer(),
                       GestureDetector(
                         onTap: () =>
                             context.push(AppRoutes.cleanerNotifications),
@@ -60,82 +64,75 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                           margin: const EdgeInsets.only(left: 16),
 
                           decoration: BoxDecoration(
-                            color: context.theme.colorScheme.outline,
+                            color: colorTheme.outline,
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Icon(
                               PhosphorIcons.bell,
-                              color: context.theme.colorScheme.onPrimary,
+                              color: colorTheme.onPrimary,
                             ),
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 32),
+                  const SizedBox(height: 32),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      SizedBox(
-                        width: 0.82 * constraints.maxWidth,
-                        child: SearchBar(
-                          shadowColor: WidgetStateProperty.all(
-                            Colors.transparent,
-                          ),
+                      Expanded(
+                        flex: AppSizes.searchFieldFlex,
+                        child: AppTextField(
+                          borderColor: Colors.transparent,
+                          borderRadius: AppSizes.radiusXl,
                           controller: searchController,
                           hintText: 'Search for services',
-                          backgroundColor: WidgetStateProperty.all(
-                            context.theme.colorScheme.surfaceContainerLow,
+                          prefixIcon: Icon(
+                            PhosphorIcons.magnifyingGlass,
+                            color: colorTheme.onSurfaceVariant,
                           ),
-                          onChanged: (value) {},
-                          onTap: () {},
-                          leading: Container(
-                            margin: const EdgeInsets.only(left: 8),
-                            child: Icon(
-                              PhosphorIcons.magnifyingGlass,
-                              color: context.theme.colorScheme.onSurfaceVariant,
-                            ),
-                          ),
+                          onChanged: (value) {
+                            // Handle search input change
+                          },
                         ),
                       ),
+                      const SizedBox(width: AppSpacing.sm),
                       Container(
-                        margin: EdgeInsets.only(left: 1.w),
-
                         decoration: BoxDecoration(
-                          color: context.theme.colorScheme.primary,
+                          color: colorTheme.primary,
                           shape: BoxShape.circle,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.all(12.0),
                           child: Icon(
                             PhosphorIcons.faders,
-                            color: context.theme.colorScheme.onPrimary,
+                            color: colorTheme.onPrimary,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
 
                   ListTile(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15.0),
                     ),
-                    tileColor: context.theme.colorScheme.secondary,
+                    tileColor: colorTheme.secondary,
                     title: Text(
                       "You're available today",
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: context.theme.colorScheme.onSecondary,
+                        color: colorTheme.onSecondary,
                       ),
                     ),
                     subtitle: Text(
                       "8:00AM . 6:00PM",
-                      style: context.theme.textTheme.bodySmall?.copyWith(
+                      style: textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.bold,
-                        color: context.theme.colorScheme.onInverseSurface,
+                        color: colorTheme.onInverseSurface,
                       ),
                     ),
                     trailing: Transform.scale(
@@ -143,13 +140,13 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                       child: Switch(
                         value: true,
                         onChanged: null,
-                        activeTrackColor: context.theme.colorScheme.primary,
-                        activeThumbColor: context.theme.colorScheme.primary,
+                        activeTrackColor: colorTheme.primary,
+                        activeThumbColor: colorTheme.primary,
                       ),
                     ),
                   ),
 
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Center(
                     child: Container(
                       padding: const EdgeInsets.symmetric(
@@ -157,12 +154,8 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                         vertical: 4,
                       ),
                       decoration: BoxDecoration(
-                        color: context.theme.colorScheme.secondaryContainer,
+                        color: colorTheme.secondaryContainer,
                         borderRadius: BorderRadius.circular(12),
-                        // border: Border.all(
-                        //   color: context.theme.colorScheme.outlineVariant,
-                        //   width: 0.8,
-                        // ),
                       ),
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -179,22 +172,16 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
 
                                 Text(
                                   '284',
-                                  style: context.theme.textTheme.bodyMedium
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: context
-                                            .theme
-                                            .colorScheme
-                                            .onSecondaryContainer,
-                                      ),
+                                  style: textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: colorTheme.onSecondaryContainer,
+                                  ),
                                 ),
                                 Text(
                                   'Today',
-                                  style: context.theme.textTheme.bodySmall
-                                      ?.copyWith(
-                                        color:
-                                            context.theme.colorScheme.outline,
-                                      ),
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorTheme.outline,
+                                  ),
                                 ),
                               ],
                             ),
@@ -204,7 +191,7 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 12,
                               ),
-                              color: context.theme.colorScheme.outlineVariant,
+                              color: colorTheme.outlineVariant,
                             ),
                             Column(
                               spacing: 4,
@@ -212,22 +199,16 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                                 Icon(PhosphorIcons.calendarBlank),
                                 Text(
                                   '126',
-                                  style: context.theme.textTheme.bodyMedium
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: context
-                                            .theme
-                                            .colorScheme
-                                            .onSecondaryContainer,
-                                      ),
+                                  style: textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: colorTheme.onSecondaryContainer,
+                                  ),
                                 ),
                                 Text(
                                   'Jobs Done',
-                                  style: context.theme.textTheme.bodySmall
-                                      ?.copyWith(
-                                        color:
-                                            context.theme.colorScheme.outline,
-                                      ),
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorTheme.outline,
+                                  ),
                                 ),
                               ],
                             ),
@@ -237,7 +218,7 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                               margin: const EdgeInsets.symmetric(
                                 horizontal: 12,
                               ),
-                              color: context.theme.colorScheme.outlineVariant,
+                              color: colorTheme.outlineVariant,
                             ),
                             Column(
                               spacing: 4,
@@ -248,22 +229,16 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                                 ),
                                 Text(
                                   '4.9',
-                                  style: context.theme.textTheme.bodyMedium
-                                      ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        color: context
-                                            .theme
-                                            .colorScheme
-                                            .onSecondaryContainer,
-                                      ),
+                                  style: textTheme.bodyMedium?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: colorTheme.onSecondaryContainer,
+                                  ),
                                 ),
                                 Text(
                                   'Avg Rating',
-                                  style: context.theme.textTheme.bodySmall
-                                      ?.copyWith(
-                                        color:
-                                            context.theme.colorScheme.outline,
-                                      ),
+                                  style: textTheme.bodySmall?.copyWith(
+                                    color: colorTheme.outline,
+                                  ),
                                 ),
                               ],
                             ),
@@ -272,13 +247,13 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'New Requests',
-                        style: context.theme.textTheme.bodyMedium?.copyWith(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -291,7 +266,7 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             '2 NEW',
-                            style: context.textTheme.bodySmall?.copyWith(
+                            style: textTheme.bodySmall?.copyWith(
                               color: context.appColors.onSuccessContainer,
                               fontWeight: FontWeight.bold,
                             ),
@@ -300,12 +275,12 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
-                        color: context.theme.colorScheme.outlineVariant,
+                        color: colorTheme.outlineVariant,
                         width: 0.8,
                       ),
                     ),
@@ -320,34 +295,30 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                             children: [
                               Row(
                                 children: [
-                                  ClipOval(
-                                    child: AppCachedImageWidget(
-                                      height: 40,
-                                      width: 40,
-                                      imageUrl: '',
-                                    ),
+                                  const AppCachedImageWidget(
+                                    height: 40,
+                                    width: 40,
+                                    isCircular: true,
+                                    imageUrl:
+                                        'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
                                   ),
-                                  SizedBox(width: 8),
+
+                                  const SizedBox(width: 8),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Maya Reindhardt',
-                                        style: context.textTheme.bodyMedium
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        style: textTheme.bodyMedium?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                       Text(
                                         'Deep Clean . 2 hours',
-                                        style: context.textTheme.bodySmall
-                                            ?.copyWith(
-                                              color: context
-                                                  .theme
-                                                  .colorScheme
-                                                  .outline,
-                                            ),
+                                        style: textTheme.bodySmall?.copyWith(
+                                          color: colorTheme.outline,
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -356,20 +327,17 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                               RichText(
                                 text: TextSpan(
                                   text: '',
-                                  style: context.textTheme.bodyLarge?.copyWith(
+                                  style: textTheme.bodyLarge?.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                                   children: <WidgetSpan>[
                                     WidgetSpan(
                                       child: Text(
                                         '\$96',
-                                        style: context.textTheme.bodyLarge
-                                            ?.copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: context
-                                                  .appColors
-                                                  .successColor,
-                                            ),
+                                        style: textTheme.bodyLarge?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          color: context.appColors.successColor,
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -377,11 +345,11 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           RichText(
                             text: TextSpan(
                               text: '',
-                              style: context.textTheme.bodyLarge?.copyWith(
+                              style: textTheme.bodyLarge?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),
                               children: <WidgetSpan>[
@@ -389,63 +357,61 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                                   child: Icon(
                                     PhosphorIcons.clock,
                                     size: 14,
-                                    color: context.theme.colorScheme.outline,
+                                    color: colorTheme.outline,
                                   ),
                                 ),
                                 WidgetSpan(
                                   child: Text(
                                     ' Tue 10:00 AM  ',
-                                    style: context.textTheme.bodySmall
-                                        ?.copyWith(
-                                          color:
-                                              context.theme.colorScheme.outline,
-                                        ),
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: colorTheme.outline,
+                                    ),
                                   ),
                                 ),
                                 WidgetSpan(
                                   child: Icon(
                                     PhosphorIcons.mapPin,
                                     size: 14,
-                                    color: context.theme.colorScheme.outline,
+                                    color: colorTheme.outline,
                                   ),
                                 ),
                                 WidgetSpan(
                                   child: Text(
                                     ' 0.8 miles away',
-                                    style: context.textTheme.bodySmall
-                                        ?.copyWith(
-                                          color:
-                                              context.theme.colorScheme.outline,
-                                        ),
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: colorTheme.outline,
+                                    ),
                                   ),
                                 ),
                               ],
                             ),
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AppButtonWidget(
-                                label: 'Decline',
-                                buttonWidth: 0.45 * constraints.maxWidth,
-                                buttonHeight: 38,
-                                backgroundColor: context
-                                    .theme
-                                    .colorScheme
-                                    .surfaceContainerHigh,
-                                labelColor:
-                                    context.theme.colorScheme.onSurfaceVariant,
-                                onPressed: () {},
+                              Flexible(
+                                flex: 1,
+                                child: AppButtonWidget(
+                                  label: 'Decline',
+
+                                  buttonHeight: 38,
+                                  backgroundColor:
+                                      colorTheme.surfaceContainerHigh,
+                                  labelColor: colorTheme.onSurfaceVariant,
+                                  onPressed: () {},
+                                ),
                               ),
-                              SizedBox(width: 16),
-                              AppButtonWidget(
-                                label: 'Accept job',
-                                backgroundColor:
-                                    context.theme.colorScheme.primary,
-                                buttonWidth: 0.45 * constraints.maxWidth,
-                                buttonHeight: 38,
-                                onPressed: () {},
+                              const SizedBox(width: 10),
+                              Flexible(
+                                flex: 1,
+                                child: AppButtonWidget(
+                                  label: 'Accept job',
+                                  backgroundColor: colorTheme.primary,
+
+                                  buttonHeight: 38,
+                                  onPressed: () {},
+                                ),
                               ),
                             ],
                           ),
@@ -453,135 +419,83 @@ class _CleanerHomeViewState extends State<CleanerHomeView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Upcoming Today',
-                        style: context.theme.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () =>
-                            context.push(AppRoutes.cleanerBookingHistory),
-                        child: Text(
-                          'See all',
-                          style: context.textTheme.bodySmall?.copyWith(
-                            color: context.appColors.successColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 16),
-                  Card(
-                    color: context.theme.colorScheme.surfaceContainerLow,
-                    elevation: 0,
-                    child: ListTile(
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.circular(12.0),
-                      //   side: BorderSide(
-                      //     color: context.theme.colorScheme.outlineVariant,
-                      //     width: 0.8,
-                      //   ),
-                      // ),
-                      leading: Container(
-                        width: 65,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: context.appColors.successColor.withValues(
-                            alpha: 0.3,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              "11: 00PM",
-                              style: context.textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: context.appColors.successColor,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      title: Text(
-                        'Elena Whitmore',
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: context.theme.colorScheme.secondary,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Standard Clean . \$72',
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.theme.colorScheme.outlineVariant,
-                        ),
-                      ),
-                      trailing: Icon(PhosphorIcons.caretRight),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+            SliverToBoxAdapter(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Upcoming Today',
+                    style: textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Card(
-                    color: context.theme.colorScheme.surfaceContainerLow,
-                    elevation: 0,
-                    child: ListTile(
-                      // shape: RoundedRectangleBorder(
-                      //   borderRadius: BorderRadius.circular(12.0),
-                      //   side: BorderSide(
-                      //     color: context.theme.colorScheme.outlineVariant,
-                      //     width: 0.8,
-                      //   ),
-                      // ),
-                      leading: Container(
-                        width: 65,
-                        height: 50,
-                        decoration: BoxDecoration(
-                          color: context.appColors.successColor.withValues(
-                            alpha: 0.3,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              "11: 00PM",
-                              style: context.textTheme.bodySmall?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: context.appColors.successColor,
-                              ),
-                            ),
-                          ),
-                        ),
+                  GestureDetector(
+                    onTap: () => context.push(AppRoutes.cleanerBookingHistory),
+                    child: Text(
+                      'See all',
+                      style: textTheme.bodySmall?.copyWith(
+                        color: context.appColors.successColor,
+                        fontWeight: FontWeight.bold,
                       ),
-
-                      title: Text(
-                        'Elena Whitmore',
-                        style: context.textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: context.theme.colorScheme.secondary,
-                        ),
-                      ),
-                      subtitle: Text(
-                        'Standard Clean . \$72',
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.theme.colorScheme.outlineVariant,
-                        ),
-                      ),
-                      trailing: Icon(PhosphorIcons.caretRight),
                     ),
                   ),
                 ],
               ),
-            );
-          },
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => Card(
+                  color: colorTheme.surfaceContainerLow,
+                  elevation: 0,
+                  child: ListTile(
+                    leading: Container(
+                      width: 65,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: context.appColors.successColor.withValues(
+                          alpha: 0.3,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Text(
+                            "11: 00PM",
+                            style: textTheme.bodySmall?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: context.appColors.successColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    title: Text(
+                      'Elena Whitmore',
+                      style: textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: colorTheme.secondary,
+                      ),
+                    ),
+                    subtitle: Text(
+                      'Standard Clean . \$72',
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorTheme.outlineVariant,
+                      ),
+                    ),
+                    trailing: Icon(PhosphorIcons.caretRight),
+                  ),
+                ),
+                childCount: 2,
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 8)),
+          ],
         ),
       ),
     );

@@ -34,7 +34,7 @@ class _CleaningLifeCycleViewState extends State<CleaningLifeCycleView> {
   Widget build(BuildContext context) {
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBarWidget(title: 'Cleaning life Cycle'),
+      appBar: const AppBarWidget(title: 'Cleaning life Cycle'),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -54,12 +54,12 @@ class _CleaningLifeCycleViewState extends State<CleaningLifeCycleView> {
                 child: Padding(
                   padding: const EdgeInsets.all(4.0),
                   child: ListTile(
-                    leading: ClipOval(
-                      child: AppCachedImageWidget(
-                        height: 50,
-                        width: 50,
-                        imageUrl: '',
-                      ),
+                    leading: const AppCachedImageWidget(
+                      height: 50,
+                      width: 50,
+                      isCircular: true,
+                      imageUrl:
+                          'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
                     ),
                     title: Text(
                       'Sofia Vargas',

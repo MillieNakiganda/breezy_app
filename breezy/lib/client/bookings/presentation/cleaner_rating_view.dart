@@ -20,7 +20,7 @@ class _CleanerRatingViewState extends State<CleanerRatingView> {
   Widget build(BuildContext context) {
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBarWidget(title: 'Rate Cleaner'),
+      appBar: const AppBarWidget(title: 'Rate Cleaner'),
       body: SafeArea(
         child: LayoutBuilder(
           builder: (context, constraints) {

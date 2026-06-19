@@ -23,14 +23,18 @@ class CleanerDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return Scaffold(
       appBar: const AppBarWidget(title: 'Cleaner Details'),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
         child: AppButtonWidget(
           label: 'Book Now',
-          backgroundColor: context.theme.colorScheme.primary,
-          labelColor: context.theme.colorScheme.onPrimary,
+          backgroundColor: colorScheme.primary,
+          labelColor: colorScheme.onPrimary,
           onPressed: () {
             context.push(AppRoutes.clientBookingView);
           },
@@ -63,7 +67,7 @@ class CleanerDetailsView extends StatelessWidget {
                             child: Container(
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: context.theme.colorScheme.onPrimary,
+                                color: colorScheme.onPrimary,
                               ),
                               child: const Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -78,7 +82,7 @@ class CleanerDetailsView extends StatelessWidget {
                     Center(
                       child: Text(
                         'Millie Nakiganda',
-                        style: context.theme.textTheme.headlineSmall?.copyWith(
+                        style: textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -88,7 +92,7 @@ class CleanerDetailsView extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       'About',
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -99,7 +103,7 @@ class CleanerDetailsView extends StatelessWidget {
                     const SizedBox(height: 16),
                     Text(
                       'Services Offered',
-                      style: context.theme.textTheme.bodyMedium?.copyWith(
+                      style: textTheme.bodyMedium?.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -117,17 +121,17 @@ class CleanerDetailsView extends StatelessWidget {
                       children: [
                         Text(
                           'Reviews',
-                          style: context.theme.textTheme.bodyMedium?.copyWith(
+                          style: textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           'See all',
-                          style: context.theme.textTheme.bodyMedium?.copyWith(
-                            color: context.theme.primaryColor,
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: theme.primaryColor,
                             fontWeight: FontWeight.bold,
                             decoration: TextDecoration.underline,
-                            decorationColor: context.theme.primaryColor,
+                            decorationColor: theme.primaryColor,
                           ),
                         ),
                       ],

@@ -10,130 +10,125 @@ class CleanerProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final colorScheme = theme.colorScheme;
+    final textTheme = theme.textTheme;
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(right: 32, left: 32),
-        child: LayoutBuilder(
-          builder: ((context, constraints) {
-            return SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minHeight: constraints.maxHeight),
-                child: IntrinsicHeight(
-                  child: Column(
-                    mainAxisAlignment: .center,
-                    crossAxisAlignment: .center,
-                    children: [
-                      Spacer(),
-                      Stack(
-                        clipBehavior: Clip.none,
-
-                        children: [
-                          ClipOval(
-                            child: AppCachedImageWidget(
-                              width: 150,
-                              height: 150,
-                              imageUrl:
-                                  'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            right: 0,
-                            left: 100,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: context.theme.colorScheme.primary,
-                                border: Border.all(
-                                  color: context.theme.colorScheme.onPrimary,
-                                  width: 2,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  PhosphorIcons.camera,
-                                  color: context.theme.colorScheme.onPrimary,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 16),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: context.theme.colorScheme.secondaryContainer,
-                          borderRadius: BorderRadius.circular(12),
+        child: CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  Center(
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        const AppCachedImageWidget(
+                          width: 150,
+                          height: 150,
+                          isCircular: true,
+                          imageUrl:
+                              'https://images.unsplash.com/photo-1532264523420-881a47db012d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9',
                         ),
-                        child: ListTile(
-                          title: Text(
-                            'Accepting jobs',
-                            style: context.textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: context
-                                  .theme
-                                  .colorScheme
-                                  .onSecondaryContainer,
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          left: 100,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: colorScheme.primary,
+                              border: Border.all(
+                                color: colorScheme.onPrimary,
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          subtitle: Text(
-                            'You are visible to clients and can receive job requests',
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: context.theme.colorScheme.secondary,
-                            ),
-                          ),
-                          trailing: Transform.scale(
-                            scale: 0.8,
-                            child: Switch(
-                              value: true,
-                              onChanged: (value) {},
-                              activeThumbColor:
-                                  context.theme.colorScheme.secondary,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                PhosphorIcons.camera,
+                                color: colorScheme.onPrimary,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-
-                      SizedBox(height: 32),
-                      ...cleanerGroupedSettingsList().entries.map((entry) {
-                        final groupName = entry.key;
-                        final groupSettings = entry.value;
-
-                        return Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              groupName.toUpperCase(),
-                              style: context.textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: context.theme.colorScheme.outline,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            ...groupSettings.map(
-                              (setting) => ListTile(
-                                onTap: setting.onTap != null
-                                    ? () => setting.onTap!(context)
-                                    : null,
-                                title: Text(
-                                  setting.title,
-                                  style: context.textTheme.bodyMedium,
-                                ),
-                                leading: Icon(setting.leadingIcon),
-                                trailing: Icon(setting.trailingIcon),
-                              ),
-                            ),
-                          ],
-                        );
-                      }),
-                      Spacer(),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 16),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: colorScheme.secondaryContainer,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ListTile(
+                      title: Text(
+                        'Accepting jobs',
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.onSecondaryContainer,
+                        ),
+                      ),
+                      subtitle: Text(
+                        'You are visible to clients and can receive job requests',
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colorScheme.secondary,
+                        ),
+                      ),
+                      trailing: Transform.scale(
+                        scale: 0.8,
+                        child: Switch(
+                          value: true,
+                          onChanged: (value) {},
+                          activeThumbColor: colorScheme.secondary,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            );
-          }),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                ...cleanerGroupedSettingsList().entries.map((entry) {
+                  final groupName = entry.key;
+                  final groupSettings = entry.value;
+
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(height: 32),
+                      Text(
+                        groupName.toUpperCase(),
+                        style: textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: colorScheme.outline,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      ...groupSettings.map(
+                        (setting) => ListTile(
+                          onTap: setting.onTap != null
+                              ? () => setting.onTap!(context)
+                              : null,
+                          title: Text(
+                            setting.title,
+                            style: textTheme.bodyMedium,
+                          ),
+                          leading: Icon(setting.leadingIcon),
+                          trailing: Icon(setting.trailingIcon),
+                        ),
+                      ),
+                    ],
+                  );
+                }),
+              ]),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 16)),
+          ],
         ),
       ),
     );

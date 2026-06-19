@@ -1,5 +1,7 @@
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
 import 'package:breezy/core/utils/router/route_names.dart';
+import 'package:breezy/core/utils/theme/app_sizes.dart';
+import 'package:breezy/core/utils/theme/app_spacing.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -51,7 +53,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
   }
 
   void prefillTimeSlots() {
-    timeslots[normalizeDay(DateTime(2026, 6, 12))] = [
+    timeslots[normalizeDay(DateTime(2026, 6, 19))] = [
       TimeSlot(
         startTime: const TimeOfDay(hour: 8, minute: 0),
         endTime: const TimeOfDay(hour: 14, minute: 0),
@@ -63,7 +65,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
         price: 85.00,
       ),
     ];
-    timeslots[normalizeDay(DateTime(2026, 6, 17))] = [
+    timeslots[normalizeDay(DateTime(2026, 6, 20))] = [
       TimeSlot(
         startTime: const TimeOfDay(hour: 10, minute: 0),
         endTime: const TimeOfDay(hour: 12, minute: 0),
@@ -82,7 +84,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
     final textTheme = context.textTheme;
     final colorTheme = context.theme.colorScheme;
     return Scaffold(
-      appBar: AppBarWidget(title: 'New Booking'),
+      appBar: const AppBarWidget(title: 'New Booking'),
       bottomNavigationBar: selectedAvailableTime == null
           ? null
           : Material(
@@ -198,22 +200,44 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                               spacing: 8,
                               runSpacing: 8,
                               children: [
-                                ...getAvailableStartTimes(selectedDay!).map(
-                                  (slot) => FilterChip(
-                                    label: Text(slot.time.format(context)),
-                                    selected:
-                                        selectedAvailableTime != null &&
-                                        isSameTimeOfDay(
-                                          selectedAvailableTime!.time,
-                                          slot.time,
-                                        ),
-                                    onSelected: (_) {
+                                ...getAvailableStartTimes(selectedDay!).map((
+                                  slot,
+                                ) {
+                                  final isSelected =
+                                      selectedAvailableTime != null &&
+                                      isSameTimeOfDay(
+                                        selectedAvailableTime!.time,
+                                        slot.time,
+                                      );
+                                  return GestureDetector(
+                                    onTap: () {
                                       setState(() {
                                         selectedAvailableTime = slot;
                                       });
                                     },
-                                  ),
-                                ),
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(22),
+                                        border: Border.all(
+                                          color: isSelected
+                                              ? colorTheme.primary
+                                              : colorTheme.outlineVariant,
+                                          width: AppSizes.cardBorderWidth,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: AppSpacing.sm,
+                                          vertical: AppSpacing.xs,
+                                        ),
+                                        child: Text(
+                                          slot.time.format(context),
+                                          style: textTheme.bodySmall,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }),
                               ],
                             )
                           : Center(
@@ -253,13 +277,13 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                               children: [
                                 Text(
                                   'Choose a home',
-                                  style: context.textTheme.bodyMedium?.copyWith(
+                                  style: textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
                                   'See all',
-                                  style: context.textTheme.bodyMedium?.copyWith(
+                                  style: textTheme.bodyMedium?.copyWith(
                                     decoration: TextDecoration.underline,
                                   ),
                                 ),
@@ -283,14 +307,8 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                                         borderRadius: BorderRadius.circular(12),
                                         border: Border.all(
                                           color: index == selectedHouse
-                                              ? context
-                                                    .theme
-                                                    .colorScheme
-                                                    .primary
-                                              : context
-                                                    .theme
-                                                    .colorScheme
-                                                    .outlineVariant,
+                                              ? colorTheme.primary
+                                              : colorTheme.outlineVariant,
                                         ),
                                       ),
                                       child: ListTile(
@@ -299,10 +317,8 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                                             borderRadius: BorderRadius.circular(
                                               8,
                                             ),
-                                            color: context
-                                                .theme
-                                                .colorScheme
-                                                .secondaryContainer,
+                                            color:
+                                                colorTheme.secondaryContainer,
                                           ),
                                           child: Padding(
                                             padding: const EdgeInsets.all(8.0),
@@ -313,11 +329,11 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                                         ),
                                         title: Text(
                                           'Brroklyn Apartment',
-                                          style: context.textTheme.bodyMedium,
+                                          style: textTheme.bodyMedium,
                                         ),
                                         subtitle: Text(
                                           '112 Hentry Street, Apt 48',
-                                          style: context.textTheme.bodySmall,
+                                          style: textTheme.bodySmall,
                                         ),
                                         trailing: index == selectedHouse
                                             ? Padding(
@@ -326,10 +342,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                                                 ),
                                                 child: Icon(
                                                   Icons.check_circle,
-                                                  color: context
-                                                      .theme
-                                                      .colorScheme
-                                                      .primary,
+                                                  color: colorTheme.primary,
                                                 ),
                                               )
                                             : SizedBox.shrink(),
@@ -346,7 +359,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                           SizedBox(width: 8),
                           Text(
                             'Add another home',
-                            style: context.textTheme.bodySmall?.copyWith(
+                            style: textTheme.bodySmall?.copyWith(
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -355,7 +368,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                       SizedBox(height: 16),
                       Text(
                         'Who should we ask',
-                        style: context.textTheme.bodyMedium?.copyWith(
+                        style: textTheme.bodyMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -366,11 +379,10 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                         children: [
                           Container(
                             decoration: BoxDecoration(
-                              color:
-                                  context.theme.colorScheme.surfaceContainerLow,
+                              color: colorTheme.surfaceContainerLow,
                               borderRadius: BorderRadius.circular(12),
                               border: Border.all(
-                                color: context.theme.colorScheme.outlineVariant,
+                                color: colorTheme.outlineVariant,
                               ),
                             ),
                             child: Padding(
@@ -383,12 +395,13 @@ class _ClientBookingViewState extends State<ClientBookingView> {
 
                                   Text(
                                     'Single Cleaner',
-                                    style: context.textTheme.bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text(
                                     'Send to Sophia only',
-                                    style: context.textTheme.bodySmall,
+                                    style: textTheme.bodySmall,
                                   ),
                                 ],
                               ),
@@ -398,9 +411,7 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: context.theme.colorScheme.outline,
-                              ),
+                              border: Border.all(color: colorTheme.outline),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(16.0),
@@ -411,12 +422,13 @@ class _ClientBookingViewState extends State<ClientBookingView> {
                                   Icon(PhosphorIcons.usersFour),
                                   Text(
                                     'First to accept',
-                                    style: context.textTheme.bodyMedium
-                                        ?.copyWith(fontWeight: FontWeight.bold),
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                   Text(
                                     'Send to cleaners nearby',
-                                    style: context.textTheme.bodySmall,
+                                    style: textTheme.bodySmall,
                                   ),
                                 ],
                               ),

@@ -23,6 +23,8 @@ class _EarningsViewState extends State<EarningsView> {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = context.textTheme;
+    final colorTheme = context.theme.colorScheme;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 32, right: 32),
@@ -32,7 +34,7 @@ class _EarningsViewState extends State<EarningsView> {
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: context.theme.colorScheme.secondaryContainer,
+                  color: colorTheme.secondaryContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Padding(
@@ -47,22 +49,22 @@ class _EarningsViewState extends State<EarningsView> {
                     children: [
                       Text(
                         'THIS MONTH',
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.theme.colorScheme.onSecondaryContainer,
+                        style: textTheme.bodySmall?.copyWith(
+                          color: colorTheme.onSecondaryContainer,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
                         "\$2,486.50",
-                        style: context.textTheme.headlineMedium?.copyWith(
-                          color: context.theme.colorScheme.onSecondaryContainer,
+                        style: textTheme.headlineMedium?.copyWith(
+                          color: colorTheme.onSecondaryContainer,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       RichText(
                         text: TextSpan(
                           text: '',
-                          style: context.textTheme.bodyLarge?.copyWith(
+                          style: textTheme.bodyLarge?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                           children: <WidgetSpan>[
@@ -75,7 +77,7 @@ class _EarningsViewState extends State<EarningsView> {
                             WidgetSpan(
                               child: Text(
                                 '+96 in February',
-                                style: context.textTheme.bodySmall?.copyWith(
+                                style: textTheme.bodySmall?.copyWith(
                                   fontWeight: FontWeight.bold,
                                   color: context.appColors.successColor,
                                 ),
@@ -99,7 +101,7 @@ class _EarningsViewState extends State<EarningsView> {
                     // color: context.theme.colorScheme.surfaceContainer,
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: context.theme.colorScheme.outlineVariant,
+                      color: colorTheme.outlineVariant,
                       width: 0.8,
                     ),
                   ),
@@ -111,14 +113,12 @@ class _EarningsViewState extends State<EarningsView> {
                         Column(
                           spacing: 2,
                           children: [
-                            Text(
-                              'JOBS DONE',
-                              style: context.theme.textTheme.bodySmall,
-                            ),
+                            Text('JOBS DONE', style: textTheme.bodySmall),
                             Text(
                               '24',
-                              style: context.theme.textTheme.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -126,19 +126,17 @@ class _EarningsViewState extends State<EarningsView> {
                           height: 30,
                           width: 1,
                           margin: const EdgeInsets.symmetric(horizontal: 12),
-                          color: context.theme.colorScheme.outlineVariant,
+                          color: colorTheme.outlineVariant,
                         ),
                         Column(
                           spacing: 2,
                           children: [
-                            Text(
-                              'AVG / JOB',
-                              style: context.theme.textTheme.bodySmall,
-                            ),
+                            Text('AVG / JOB', style: textTheme.bodySmall),
                             Text(
                               '\$103.60',
-                              style: context.theme.textTheme.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -146,19 +144,17 @@ class _EarningsViewState extends State<EarningsView> {
                           height: 30,
                           width: 1,
                           margin: const EdgeInsets.symmetric(horizontal: 12),
-                          color: context.theme.colorScheme.outlineVariant,
+                          color: colorTheme.outlineVariant,
                         ),
                         Column(
                           spacing: 2,
                           children: [
-                            Text(
-                              'HOURS',
-                              style: context.theme.textTheme.bodySmall,
-                            ),
+                            Text('HOURS', style: textTheme.bodySmall),
                             Text(
                               '62.5',
-                              style: context.theme.textTheme.bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.bold),
+                              style: textTheme.bodyMedium?.copyWith(
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ],
                         ),
@@ -174,7 +170,7 @@ class _EarningsViewState extends State<EarningsView> {
                 padding: const EdgeInsets.all(20),
                 width: MediaQuery.of(context).size.width * 0.9,
                 decoration: BoxDecoration(
-                  color: context.theme.colorScheme.surfaceContainer,
+                  color: colorTheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: BarChart(
@@ -239,8 +235,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 150,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -251,8 +246,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 170,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -263,8 +257,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 90,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -275,8 +268,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 189,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -287,8 +279,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 350,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -299,8 +290,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 120,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -311,8 +301,7 @@ class _EarningsViewState extends State<EarningsView> {
                           BarChartRodData(
                             toY: 160,
                             width: 30,
-                            color:
-                                context.theme.colorScheme.onSecondaryContainer,
+                            color: colorTheme.onSecondaryContainer,
                             borderRadius: BorderRadius.circular(3),
                           ),
                         ],
@@ -321,19 +310,19 @@ class _EarningsViewState extends State<EarningsView> {
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Recent Payouts',
-                    style: context.theme.textTheme.bodyMedium?.copyWith(
+                    style: textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     'See all',
-                    style: context.theme.textTheme.bodyMedium?.copyWith(
+                    style: textTheme.bodyMedium?.copyWith(
                       color: context.appColors.successColor,
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.underline,
@@ -342,7 +331,7 @@ class _EarningsViewState extends State<EarningsView> {
                   ),
                 ],
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               ListTile(
                 leading: Container(
                   decoration: BoxDecoration(
@@ -361,20 +350,20 @@ class _EarningsViewState extends State<EarningsView> {
                 ),
                 title: Text(
                   "Maya Reinhardt",
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                  style: textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: context.theme.colorScheme.secondary,
                   ),
                 ),
                 subtitle: Text(
                   "Mar 12 . Deep Clean",
-                  style: context.theme.textTheme.bodySmall?.copyWith(
-                    color: context.theme.colorScheme.outlineVariant,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorTheme.outlineVariant,
                   ),
                 ),
                 trailing: Text(
                   "+\$140",
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                  style: textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: context.appColors.successColor,
                   ),
@@ -398,20 +387,20 @@ class _EarningsViewState extends State<EarningsView> {
                 ),
                 title: Text(
                   "Maya Reinhardt",
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                  style: textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: context.theme.colorScheme.secondary,
+                    color: colorTheme.secondary,
                   ),
                 ),
                 subtitle: Text(
                   "Mar 12 . Deep Clean",
-                  style: context.theme.textTheme.bodySmall?.copyWith(
-                    color: context.theme.colorScheme.outlineVariant,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorTheme.outlineVariant,
                   ),
                 ),
                 trailing: Text(
                   "+\$140",
-                  style: context.theme.textTheme.bodyMedium?.copyWith(
+                  style: textTheme.bodyMedium?.copyWith(
                     fontWeight: FontWeight.bold,
                     color: context.appColors.successColor,
                   ),
