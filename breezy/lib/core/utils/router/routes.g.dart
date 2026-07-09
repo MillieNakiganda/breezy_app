@@ -9,6 +9,7 @@ part of 'routes.dart';
 List<RouteBase> get $appRoutes => [
   $onboardingRoute,
   $clientMainTabsRoute,
+  $backendConnectionTestRoute,
   $loginRoute,
   $registrationRoute,
   $userCategoryRoute,
@@ -344,6 +345,32 @@ mixin $ManageHomesRoute on GoRouteData {
 
   @override
   String get location => GoRouteData.$location('/manageHome');
+
+  @override
+  void go(BuildContext context) => context.go(location);
+
+  @override
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  @override
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  @override
+  void replace(BuildContext context) => context.replace(location);
+}
+
+RouteBase get $backendConnectionTestRoute => GoRouteData.$route(
+  path: '/dev/backend-test',
+  factory: $BackendConnectionTestRoute._fromState,
+);
+
+mixin $BackendConnectionTestRoute on GoRouteData {
+  static BackendConnectionTestRoute _fromState(GoRouterState state) =>
+      BackendConnectionTestRoute();
+
+  @override
+  String get location => GoRouteData.$location('/dev/backend-test');
 
   @override
   void go(BuildContext context) => context.go(location);

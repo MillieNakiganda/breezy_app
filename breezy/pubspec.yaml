@@ -47,6 +47,15 @@ dependencies:
   table_calendar: ^3.2.0
   intl: ^0.20.2
 
+  # breezy_backend (Serverpod) — sibling repo at ../../breezy_backend
+  breezy_backend_client:
+    path: ../../breezy_backend/breezy_backend_client
+  serverpod_flutter: 3.4.10
+  serverpod_auth_idp_flutter: 3.4.10
+
+dependency_overrides:
+  flutter_secure_storage: ^10.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -73,6 +82,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/
+    - assets/config.json
 
   fonts:
     - family: Sans

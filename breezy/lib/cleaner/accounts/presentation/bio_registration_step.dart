@@ -1,20 +1,30 @@
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
-import 'package:breezy/core/utils/app_extensions/validation_extensions.dart';
-import 'package:check_disposable_email/check_disposable_email.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../core/common_widgets/common_components/app_button_icon_widget.dart';
 import '../../../core/common_widgets/common_components/app_button_widget.dart';
 import '../../../core/common_widgets/common_components/app_text_field.dart';
 import '../../../core/utils/router/route_names.dart';
 
 class BioRegistrationStep extends StatefulWidget {
-  const BioRegistrationStep({super.key, required this.onContinue});
-  final VoidCallback onContinue;
+  const BioRegistrationStep({
+    super.key,
+    required this.onSubmit,
+    required this.onError,
+  });
+
+  final Future<void> Function({
+    required String firstName,
+    required String lastName,
+    required String phoneNumber,
+    required DateTime dateOfBirth,
+    required String gender,
+  })
+  onSubmit;
+  final void Function(Object error) onError;
 
   @override
   State<BioRegistrationStep> createState() => _BioRegistrationStepState();
@@ -24,9 +34,71 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
   final cleanerRegistrationKey = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-
   final TextEditingController phoneNumberController = TextEditingController();
+
+  String? selectedGender;
+  DateTime? selectedDateOfBirth;
+  bool isSubmitting = false;
+
+  static const List<String> _genderOptions = [
+    'Male',
+    'Female',
+    'Prefer not to say',
+  ];
+
+  Future<void> _pickDateOfBirth() async {
+    final now = DateTime.now();
+    final picked = await showDatePicker(
+      context: context,
+      initialDate:
+          selectedDateOfBirth ?? DateTime(now.year - 18, now.month, now.day),
+      firstDate: DateTime(1940),
+      lastDate: DateTime(now.year - 16, now.month, now.day),
+    );
+    if (picked != null) {
+      setState(() => selectedDateOfBirth = picked);
+    }
+  }
+
+  String _formatDate(DateTime date) {
+    return '${date.day.toString().padLeft(2, '0')} / '
+        '${date.month.toString().padLeft(2, '0')} / '
+        '${date.year}';
+  }
+
+  String normalizeGender(String gender) {
+    return gender.toLowerCase();
+  }
+
+  Future<void> handleContinue() async {
+    if (!cleanerRegistrationKey.currentState!.validate()) return;
+    if (selectedDateOfBirth == null || selectedGender == null) return;
+
+    setState(() => isSubmitting = true);
+    try {
+      await widget.onSubmit(
+        firstName: firstNameController.text.trim(),
+        lastName: lastNameController.text.trim(),
+        phoneNumber: phoneNumberController.text.trim(),
+        dateOfBirth: selectedDateOfBirth!,
+        gender: normalizeGender(selectedGender!),
+      );
+    } catch (error) {
+      widget.onError(error);
+    } finally {
+      if (mounted) {
+        setState(() => isSubmitting = false);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    phoneNumberController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,41 +135,151 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
                   ),
                   const SizedBox(height: 16),
                   AppTextField(
-                    controller: emailController,
-                    hintText: 'Email',
-                    prefixIcon: const Icon(
-                      PhosphorIcons.envelopeSimple,
-                      size: 18,
-                    ),
-                    validator: (value) {
-                      if (value == null || value.trim().isEmpty) {
-                        return 'Please enter your email';
-                      }
-
-                      final trimmed = value.trim();
-
-                      if (!trimmed.isValidEmail) {
-                        return 'Please enter a valid email address';
-                      }
-
-                      final email = Disposable.instance.validateEmail(trimmed);
-
-                      if (!email.isFormatValid) {
-                        return 'Please enter a valid email address';
-                      }
-
-                      if (email.isDisposable) {
-                        return 'Please enter a non-disposable email address';
-                      }
-
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  AppTextField(
                     controller: phoneNumberController,
                     hintText: 'Phone Number',
                     prefixIcon: const Icon(PhosphorIcons.phone, size: 18),
+                    validator: (value) {
+                      if (value == null || value.trim().isEmpty) {
+                        return 'Please enter your phone number';
+                      }
+                      return null;
+                    },
+                  ),
+
+                  const SizedBox(height: 16),
+                  DropdownButtonFormField<String>(
+                    initialValue: selectedGender,
+                    decoration: InputDecoration(
+                      hintText: 'Gender',
+                      hintStyle: context.textTheme.bodyMedium?.copyWith(
+                        color: context.theme.colorScheme.onSurfaceVariant,
+                      ),
+                      filled: true,
+                      fillColor: context.theme.colorScheme.surfaceContainerLow,
+                      prefixIcon: const Icon(
+                        PhosphorIcons.genderIntersex,
+                        size: 18,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: context.theme.colorScheme.outlineVariant,
+                          width: 0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: context.theme.colorScheme.primary,
+                          width: 0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(
+                          color: Colors.transparent,
+                          width: 0,
+                        ),
+                        borderRadius: BorderRadius.circular(8.0),
+                      ),
+                    ),
+                    style: context.textTheme.bodyMedium?.copyWith(
+                      color: context.theme.colorScheme.onSurface,
+                    ),
+                    dropdownColor:
+                        context.theme.colorScheme.surfaceContainerLow,
+                    icon: Icon(
+                      PhosphorIcons.caretDown,
+                      size: 16,
+                      color: context.theme.colorScheme.onSurfaceVariant,
+                    ),
+                    items: _genderOptions
+                        .map((g) => DropdownMenuItem(value: g, child: Text(g)))
+                        .toList(),
+                    onChanged: (value) =>
+                        setState(() => selectedGender = value),
+                    validator: (value) =>
+                        value == null ? 'Please select your gender' : null,
+                  ),
+
+                  const SizedBox(height: 16),
+                  GestureDetector(
+                    onTap: _pickDateOfBirth,
+                    child: FormField<DateTime>(
+                      initialValue: selectedDateOfBirth,
+                      validator: (_) => selectedDateOfBirth == null
+                          ? 'Please select your date of birth'
+                          : null,
+                      builder: (field) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            height: 52,
+                            padding: const EdgeInsets.symmetric(horizontal: 12),
+                            decoration: BoxDecoration(
+                              color:
+                                  context.theme.colorScheme.surfaceContainerLow,
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color: field.hasError
+                                    ? context.theme.colorScheme.error
+                                    : context.theme.colorScheme.outlineVariant,
+                                width: 0,
+                              ),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  PhosphorIcons.calendarBlank,
+                                  size: 18,
+                                  color: context
+                                      .theme
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Text(
+                                    selectedDateOfBirth != null
+                                        ? _formatDate(selectedDateOfBirth!)
+                                        : 'Date of Birth',
+                                    style: context.textTheme.bodyMedium
+                                        ?.copyWith(
+                                          color: selectedDateOfBirth != null
+                                              ? context
+                                                    .theme
+                                                    .colorScheme
+                                                    .onSurface
+                                              : context
+                                                    .theme
+                                                    .colorScheme
+                                                    .onSurfaceVariant,
+                                        ),
+                                  ),
+                                ),
+                                Icon(
+                                  PhosphorIcons.caretDown,
+                                  size: 16,
+                                  color: context
+                                      .theme
+                                      .colorScheme
+                                      .onSurfaceVariant,
+                                ),
+                              ],
+                            ),
+                          ),
+                          if (field.hasError)
+                            Padding(
+                              padding: const EdgeInsets.only(top: 6, left: 12),
+                              child: Text(
+                                field.errorText!,
+                                style: context.textTheme.bodySmall?.copyWith(
+                                  color: context.theme.colorScheme.error,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
 
                   const SizedBox(height: 16),
@@ -154,75 +336,8 @@ class _BioRegistrationStepState extends State<BioRegistrationStep> {
 
                   SizedBox(height: 16),
                   AppButtonWidget(
-                    label: 'Continue',
-                    onPressed: () {
-                      if (cleanerRegistrationKey.currentState!.validate()) {
-                        widget.onContinue();
-                      }
-                    },
-                  ),
-                  SizedBox(height: 8),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        height: 0.5,
-                        width: 26.w,
-                        color: context.theme.colorScheme.outlineVariant,
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'OR',
-                        style: context.textTheme.bodySmall?.copyWith(
-                          color: context.theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Container(
-                        height: 0.5,
-                        width: 26.w,
-                        color: context.theme.colorScheme.outlineVariant,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-
-                  AppIconButtonWidget(
-                    label: 'Google',
-                    icon: Icon(
-                      Icons.facebook,
-                      color: context.theme.colorScheme.onSurfaceVariant,
-                    ),
-                    onPressed: () {},
-                    backgroundColor: Colors.transparent,
-                    borderSideWidth: 0.5,
-                    borderSideColor: context.theme.colorScheme.outlineVariant,
-                    labelColor: context.theme.colorScheme.onSurfaceVariant,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: RichText(
-              text: TextSpan(
-                text: 'Already have an account? ',
-                style: context.textTheme.bodySmall?.copyWith(
-                  color: context.theme.colorScheme.onSurfaceVariant,
-                ),
-                children: [
-                  TextSpan(
-                    text: 'Sign in',
-                    style: context.textTheme.bodySmall?.copyWith(
-                      color: context.theme.colorScheme.primary,
-                      fontWeight: FontWeight.w500,
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        context.go(AppRoutes.loginView);
-                      },
+                    label: isSubmitting ? 'Saving...' : 'Continue',
+                    onPressed: isSubmitting ? null : handleContinue,
                   ),
                 ],
               ),

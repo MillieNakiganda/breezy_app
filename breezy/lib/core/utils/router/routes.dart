@@ -27,6 +27,7 @@ import '../../../client/shared/presentation/client_home_view.dart';
 import '../../../client/bookings/presentation/history.dart';
 import '../../../client/shared/presentation/components/client_navigation_bar_widget.dart';
 import '../../common_widgets/login_view.dart';
+import '../../server/backend_connection_test_view.dart';
 import '../../common_widgets/onboarding/presentation/views/onboarding_view.dart';
 import '../../common_widgets/onboarding/presentation/views/user_category_view.dart';
 import 'route_names.dart';
@@ -147,6 +148,15 @@ class BookingsRoute extends GoRouteData with $BookingsRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
     return const BookingsView();
+  }
+}
+
+@TypedGoRoute<BackendConnectionTestRoute>(path: AppRoutes.backendConnectionTest)
+class BackendConnectionTestRoute extends GoRouteData
+    with $BackendConnectionTestRoute {
+  @override
+  Widget build(BuildContext context, GoRouterState state) {
+    return const BackendConnectionTestView();
   }
 }
 

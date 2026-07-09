@@ -26,4 +26,5 @@ class AppRoutes {
   static const String cleanerAssignmentView = '/cleanerAssignmentView';
   static const String cleanerActiveJob = '/cleanerActiveJob';
   static const String cleanerBookingHistory = '/cleanerBookingHistory';
+  static const String backendConnectionTest = '/dev/backend-test';
 }
