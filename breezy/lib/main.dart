@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import 'core/server/server_client.dart';
@@ -14,7 +15,7 @@ Future<void> main() async {
 
   await initializeServerClient();
 
-  runApp(const MyApp());
+  runApp(ProviderScope(retry: (retryCount, error) => null, child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../../../core/common_widgets/common_components/app_bar_widget.dart';
+import '../../../core/providers/user_type_provider.dart';
 import '../domain/registration_step.dart';
 import 'components/muti_step_header_widget.dart';
 import 'documents_review_step.dart';
@@ -88,6 +89,7 @@ class _CleanerRegistrationViewState extends State<CleanerRegistrationView> {
       phoneNumber: phoneNumber,
       dateOfBirth: dateOfBirth,
       gender: gender,
+      userType: UserType.cleaner,
     );
     nextStep();
   }

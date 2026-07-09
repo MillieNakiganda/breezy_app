@@ -1,10 +1,14 @@
 import 'package:breezy/cleaner/bookings/presentation/cleaner_assignment_view.dart';
 import 'package:breezy/cleaner/shared/presentation/cleaner_notifications_view.dart';
 
+import 'package:breezy/client/accounts/client_registration_view.dart';
 import 'package:breezy/client/bookings/presentation/client_bookings_history_view.dart';
 import 'package:breezy/client/accounts/client_profile_view.dart';
+
+import 'package:breezy/core/providers/user_type_provider.dart';
 import 'package:breezy/core/utils/router/app_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../cleaner/accounts/presentation/cleaner_profile_view.dart';
@@ -172,8 +176,15 @@ class LoginRoute extends GoRouteData with $LoginRoute {
 class RegistrationRoute extends GoRouteData with $RegistrationRoute {
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return //CleanerRegistrationView();
-    CleanerRegistrationView();
+    return Consumer(
+      builder: (context, ref, _) {
+        final userType = ref.read(userTypeProvider);
+        return switch (userType) {
+          UserType.client => const ClientRegistrationView(),
+          UserType.cleaner => const CleanerRegistrationView(),
+        };
+      },
+    );
   }
 }
 

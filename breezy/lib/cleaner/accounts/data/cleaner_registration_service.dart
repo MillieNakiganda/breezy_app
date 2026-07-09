@@ -1,5 +1,7 @@
 import 'package:breezy/core/server/server_client.dart';
 
+import '../../../core/providers/user_type_provider.dart';
+
 class CleanerRegistrationService {
   const CleanerRegistrationService();
 
@@ -13,10 +15,11 @@ class CleanerRegistrationService {
     required String phoneNumber,
     required DateTime dateOfBirth,
     required String gender,
+    required UserType userType,
   }) {
     return serverClient.registration.completeStepOne(
       SignupStepOneRequest(
-        roleName: 'cleaner',
+        roleName: userType.name,
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,

@@ -1,24 +1,28 @@
 import 'package:breezy/core/common_widgets/common_components/app_bar_widget.dart';
 import 'package:breezy/core/common_widgets/common_components/app_button_widget.dart';
+
+import 'package:breezy/core/providers/user_type_provider.dart';
 import 'package:breezy/core/utils/images.dart';
 import 'package:breezy/core/utils/router/route_names.dart';
 import 'package:breezy/core/utils/theme/theme_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../components/user_category_widget.dart';
 
-class UserCategoryView extends StatefulWidget {
+class UserCategoryView extends ConsumerStatefulWidget {
   const UserCategoryView({super.key});
 
   @override
-  State<UserCategoryView> createState() => _UserCategoryViewState();
+  ConsumerState<UserCategoryView> createState() => _UserCategoryViewState();
 }
 
-class _UserCategoryViewState extends State<UserCategoryView> {
+class _UserCategoryViewState extends ConsumerState<UserCategoryView> {
   @override
   Widget build(BuildContext context) {
+    final userType = ref.watch(userTypeProvider);
     var colorTheme = context.theme.colorScheme;
     var textTheme = context.textTheme;
     return Scaffold(
@@ -52,15 +56,19 @@ class _UserCategoryViewState extends State<UserCategoryView> {
                     context: context,
                     image: Images.clients,
                     label: 'Client',
-                    isSelected: true,
-                    onTap: () {},
+                    isSelected: userType == UserType.client,
+                    onTap: () => ref
+                        .read(userTypeProvider.notifier)
+                        .setUserType(UserType.client),
                   ),
                   CategoryCard(
                     context: context,
                     image: Images.cleaners,
                     label: 'Cleaner',
-                    isSelected: false,
-                    onTap: () {},
+                    isSelected: userType == UserType.cleaner,
+                    onTap: () => ref
+                        .read(userTypeProvider.notifier)
+                        .setUserType(UserType.cleaner),
                   ),
                 ],
               ),
