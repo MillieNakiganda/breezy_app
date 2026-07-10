@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../utils/onboarding_prefs.dart';
 import '../../../../utils/router/route_names.dart';
 import '../../../../utils/theme/theme_extensions.dart';
 import '../../domain/onboarding_item.dart';
@@ -30,7 +31,9 @@ class OnboardingWidget extends StatelessWidget {
         Align(
           alignment: Alignment.centerRight,
           child: TextButton(
-            onPressed: () {
+            onPressed: () async {
+              await OnboardingPrefs.setOnboarded();
+              if (!context.mounted) return;
               context.go(AppRoutes.loginView);
             },
             child: Text('Skip', style: context.textTheme.bodyLarge),

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +16,8 @@ Future<void> main() async {
   debugInvertOversizedImages = kDebugMode;
 
   await initializeServerClient();
+  //we may have to unawait this later
+  await initializeAppRouter();
 
   runApp(ProviderScope(retry: (retryCount, error) => null, child: MyApp()));
 }

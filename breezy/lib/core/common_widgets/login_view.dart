@@ -1,12 +1,13 @@
-import 'package:check_disposable_email/check_disposable_email.dart';
+import 'package:breezy/core/server/auth_navigation.dart';
+import 'package:breezy/core/server/server_client.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
 import '../utils/router/route_names.dart';
-import '../utils/app_extensions/validation_extensions.dart';
 import 'common_components/app_button_icon_widget.dart';
 import 'common_components/app_button_widget.dart';
 import 'common_components/app_text_field.dart';
@@ -23,6 +24,28 @@ class _LoginViewState extends State<LoginView> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final loginFormKey = GlobalKey<FormState>();
+  late final EmailAuthController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = EmailAuthController(
+      client: serverClient,
+      startScreen: EmailFlowScreen.login,
+      onAuthenticated: () async {
+        context.go(await getAuthenticatedHomeRoute());
+      },
+      onError: (error) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error: $error')));
+      },
+    );
+
+    _controller.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +81,7 @@ class _LoginViewState extends State<LoginView> {
                           const SizedBox(height: 24),
 
                           AppTextField(
-                            controller: emailController,
+                            controller: _controller.emailController,
                             hintText: 'Enter your email',
                             autoValidateMode:
                                 AutovalidateMode.onUserInteraction,
@@ -66,36 +89,37 @@ class _LoginViewState extends State<LoginView> {
                               PhosphorIcons.envelopeSimple,
                               color: context.theme.colorScheme.onSurfaceVariant,
                             ),
-                            validator: (value) {
-                              if (value == null || value.trim().isEmpty) {
-                                return 'Please enter your email';
-                              }
+                            //to revive later
+                            /*   validator: (value) {
+                                  if (value == null || value.trim().isEmpty) {
+                                    return 'Please enter your email';
+                                  }
 
-                              final trimmed = value.trim();
+                                  final trimmed = value.trim();
 
-                              if (!trimmed.isValidEmail) {
-                                return 'Please enter a valid email address';
-                              }
+                                  if (!trimmed.isValidEmail) {
+                                    return 'Please enter a valid email address';
+                                  }
 
-                              final email = Disposable.instance.validateEmail(
-                                trimmed,
-                              );
+                                  final email = Disposable.instance
+                                      .validateEmail(trimmed);
 
-                              if (!email.isFormatValid) {
-                                return 'Please enter a valid email address';
-                              }
+                                  if (!email.isFormatValid) {
+                                    return 'Please enter a valid email address';
+                                  }
 
-                              if (email.isDisposable) {
-                                return 'Please enter a non-disposable email address';
-                              }
+                                  if (email.isDisposable) {
+                                    return 'Please enter a non-disposable email address';
+                                  }
 
-                              return null;
-                            },
+                                  return null;
+                                },
+                             */
                           ),
                           const SizedBox(height: 16),
 
                           AppTextField(
-                            controller: passwordController,
+                            controller: _controller.passwordController,
                             hintText: 'Enter your password',
                             prefixIcon: Icon(
                               PhosphorIcons.lockSimple,
@@ -129,10 +153,11 @@ class _LoginViewState extends State<LoginView> {
 
                           AppButtonWidget(
                             label: 'Login',
-                            onPressed: () {
+                            onPressed: () async {
                               if (loginFormKey.currentState!.validate()) {
                                 // Perform login action
-                                context.go(AppRoutes.cleanerHome);
+                                await _controller.login();
+                                // context.go(AppRoutes.cleanerHome);
                               }
                             },
                           ),

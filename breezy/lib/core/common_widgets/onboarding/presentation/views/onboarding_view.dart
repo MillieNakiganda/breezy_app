@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../utils/onboarding_prefs.dart';
 import '../../../../utils/router/route_names.dart';
 import '../../../../utils/theme/theme_extensions.dart';
 import '../../domain/onboarding_item.dart';
@@ -22,8 +23,10 @@ class _OnboardingViewState extends State<OnboardingView> {
     super.dispose();
   }
 
-  void goToNextPage() {
+  Future<void> goToNextPage() async {
     if (currentPage >= onboardingItems.length - 1) {
+      await OnboardingPrefs.setOnboarded();
+      if (!mounted) return;
       context.go(AppRoutes.loginView);
       return;
     }

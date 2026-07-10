@@ -2,7 +2,9 @@ import 'package:breezy/core/utils/router/route_names.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:phosphoricons_flutter/phosphoricons_flutter.dart';
+import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 
+import '../server/server_client.dart';
 import '../utils/router/routes.dart';
 
 class Setting {
@@ -55,6 +57,13 @@ final clientSettings = [
     title: 'Privacy Policy',
     leadingIcon: PhosphorIcons.fileText,
     onTap: null,
+    trailingIcon: PhosphorIcons.caretRight,
+  ),
+  Setting(
+    group: 'Legal',
+    title: 'Logout',
+    leadingIcon: PhosphorIcons.signOut,
+    onTap: (context) => serverClient.auth.signOutDevice(),
     trailingIcon: PhosphorIcons.caretRight,
   ),
 ];

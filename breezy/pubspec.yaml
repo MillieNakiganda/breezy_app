@@ -53,6 +53,7 @@ dependencies:
     path: ../../breezy_backend/breezy_backend_client
   serverpod_flutter: 3.4.10
   serverpod_auth_idp_flutter: 3.4.10
+  shared_preferences: ^2.5.5
 
 dependency_overrides:
   flutter_secure_storage: ^10.0.0
