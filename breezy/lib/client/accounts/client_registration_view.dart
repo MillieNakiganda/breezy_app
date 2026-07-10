@@ -81,14 +81,14 @@ class _ClientRegistrationViewState extends State<ClientRegistrationView> {
 
   @override
   Widget build(BuildContext context) {
-    if (!isServerAuthenticated) {
+    if (!ServerAuthLogic.isServerAuthenticated) {
       return Scaffold(
         appBar: AppBarWidget(),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             child: EmailSignInWidget(
-              client: serverClient,
+              client: ServerAuthLogic.serverClient,
               startScreen: EmailFlowScreen.startRegistration,
               onAuthenticated: () => setState(() {}),
             ),

@@ -30,7 +30,9 @@ class _BackendConnectionTestViewState extends State<BackendConnectionTestView> {
     });
 
     try {
-      final result = await serverClient.greeting.hello(_nameController.text);
+      final result = await ServerAuthLogic.serverClient.greeting.hello(
+        _nameController.text,
+      );
       setState(() {
         _greeting = result.message;
       });
@@ -64,7 +66,10 @@ class _BackendConnectionTestViewState extends State<BackendConnectionTestView> {
           children: [
             Text('Server URL', style: theme.textTheme.titleSmall),
             const SizedBox(height: 4),
-            SelectableText(serverUrl, style: theme.textTheme.bodyMedium),
+            SelectableText(
+              ServerAuthLogic.serverUrl,
+              style: theme.textTheme.bodyMedium,
+            ),
             const SizedBox(height: 24),
             TextField(
               controller: _nameController,

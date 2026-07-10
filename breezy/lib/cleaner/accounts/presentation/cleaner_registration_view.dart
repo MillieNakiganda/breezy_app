@@ -33,7 +33,7 @@ class _CleanerRegistrationViewState extends State<CleanerRegistrationView> {
   }
 
   Future<void> loadOnboardingStatus() async {
-    if (!isServerAuthenticated) {
+    if (!ServerAuthLogic.isServerAuthenticated) {
       setState(() => isLoadingStatus = false);
       return;
     }
@@ -132,14 +132,14 @@ class _CleanerRegistrationViewState extends State<CleanerRegistrationView> {
       return const Scaffold(body: Center(child: CircularProgressIndicator()));
     }
 
-    if (!isServerAuthenticated) {
+    if (!ServerAuthLogic.isServerAuthenticated) {
       return Scaffold(
         appBar: AppBarWidget(),
         body: SafeArea(
           child: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
             child: EmailSignInWidget(
-              client: serverClient,
+              client: ServerAuthLogic.serverClient,
               startScreen: EmailFlowScreen.startRegistration,
               onAuthenticated: loadOnboardingStatus,
             ),

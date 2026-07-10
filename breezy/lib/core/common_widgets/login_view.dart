@@ -1,4 +1,3 @@
-import 'package:breezy/core/server/auth_navigation.dart';
 import 'package:breezy/core/server/server_client.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +29,10 @@ class _LoginViewState extends State<LoginView> {
   void initState() {
     super.initState();
     _controller = EmailAuthController(
-      client: serverClient,
+      client: ServerAuthLogic.serverClient,
       startScreen: EmailFlowScreen.login,
       onAuthenticated: () async {
-        context.go(await getAuthenticatedHomeRoute());
+        context.go(await ServerAuthLogic.getAuthenticatedHomeRoute());
       },
       onError: (error) {
         ScaffoldMessenger.of(

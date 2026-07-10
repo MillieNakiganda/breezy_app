@@ -63,7 +63,7 @@ final clientSettings = [
     group: 'Legal',
     title: 'Logout',
     leadingIcon: PhosphorIcons.signOut,
-    onTap: (context) => serverClient.auth.signOutDevice(),
+    onTap: (context) => ServerAuthLogic.serverClient.auth.signOutDevice(),
     trailingIcon: PhosphorIcons.caretRight,
   ),
 ];

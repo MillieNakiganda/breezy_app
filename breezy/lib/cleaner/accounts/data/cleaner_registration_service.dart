@@ -6,7 +6,7 @@ class CleanerRegistrationService {
   const CleanerRegistrationService();
 
   Future<OnboardingStatus> getOnboardingStatus() {
-    return serverClient.registration.getOnboardingStatus();
+    return ServerAuthLogic.serverClient.registration.getOnboardingStatus();
   }
 
   Future<UserProfile> completeStepOne({
@@ -17,7 +17,7 @@ class CleanerRegistrationService {
     required String gender,
     required UserType userType,
   }) {
-    return serverClient.registration.completeStepOne(
+    return ServerAuthLogic.serverClient.registration.completeStepOne(
       SignupStepOneRequest(
         roleName: userType.name,
         firstName: firstName,
@@ -43,7 +43,7 @@ class CleanerRegistrationService {
     double? longitude,
     String? additionalInfo,
   }) {
-    return serverClient.registration.completeStepTwo(
+    return ServerAuthLogic.serverClient.registration.completeStepTwo(
       SignupStepTwoRequest(
         governmentIdDocumentType: governmentIdDocumentType,
         governmentIdDocumentUrl: governmentIdDocumentUrl,

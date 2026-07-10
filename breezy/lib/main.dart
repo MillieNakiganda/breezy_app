@@ -15,7 +15,7 @@ Future<void> main() async {
   PaintingBinding.instance.imageCache.maximumSizeBytes = 100 << 20;
   debugInvertOversizedImages = kDebugMode;
 
-  await initializeServerClient();
+  await ServerAuthLogic.initializeServerClient();
   //we may have to unawait this later
   await initializeAppRouter();
 

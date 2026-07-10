@@ -1,4 +1,3 @@
-import 'package:breezy/core/server/auth_navigation.dart';
 import 'package:breezy/core/server/server_client.dart';
 import 'package:breezy/core/utils/onboarding_prefs.dart';
 import 'package:breezy/core/utils/router/routes.dart';
@@ -40,10 +39,10 @@ Future<void> initializeAppRouter() async {
     navigatorKey: rootNavigatorKey,
     routes: $appRoutes,
     initialLocation: _resolveInitialLocation(hasOnboarded),
-    refreshListenable: serverClient.auth.authInfoListenable,
+    refreshListenable: ServerAuthLogic.serverClient.auth.authInfoListenable,
     redirect: (context, state) async {
       final hasOnboarded = await OnboardingPrefs.hasOnboarded();
-      final isAuthenticated = isServerAuthenticated;
+      final isAuthenticated = ServerAuthLogic.isServerAuthenticated;
       final location = state.matchedLocation;
 
       if (!hasOnboarded) {
@@ -64,7 +63,7 @@ Future<void> initializeAppRouter() async {
           location == _onboardingRoute ||
           _isUnauthenticatedPublicRoute(location);
       if (isEntryRoute && location != AppRoutes.backendConnectionTest) {
-        return getAuthenticatedHomeRoute();
+        return ServerAuthLogic.getAuthenticatedHomeRoute();
       }
 
       return null;
